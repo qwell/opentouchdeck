@@ -8,6 +8,7 @@
     "sourceMap": true,
   },
   "exclude": [
+    "packages",
     "node_modules",
     "lib"
   ]

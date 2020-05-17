@@ -12,16 +12,15 @@
   "author": "Jason Parker <north@ntbox.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "opentouchdeck": "file:../opentouchdeck",
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "electron": "^8.3.0",
-    "@types/node": "^12.12.39"
+    "@types/node": "^12.12.39",
+    "electron": "^8.3.0"
+  },
+  "peerDependencies": {
+    "opentouchdeck": "^v0.0.1"
   },
   "scripts": {
     "build": "tsc",
     "start": "electron lib/"
-  },
-  "devDependencies": {
-    "electron": "^8.3.0"
   }
 }

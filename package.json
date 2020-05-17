@@ -1,6 +1,20 @@
 {
+  "workspaces": [
+    "packages/*"
+  ],
   "private": true,
   "name": "opentouchdeck-packaging",
   "author": "Jason Parker <north@ntbox.com>",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "electron": "^8.3.0",
+    "lerna": "^3.21.0"
+  },
+  "scripts": {
+    "build": "lerna run build"
+  },
+  "dependencies": {
+    "opentouchdeck": "file:packages\\opentouchdeck",
+    "opentouchdeck-client": "file:packages\\opentouchdeck-client"
+  }
 }
