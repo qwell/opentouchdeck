@@ -14,7 +14,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@types/node": "^12.12.39",
-    "electron": "^8.3.0"
+    "electron": "^8.3.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "opentouchdeck": "^0.0.1"

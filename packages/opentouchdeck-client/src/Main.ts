@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from 'electron';
+import * as path from 'path';
 
 export default class Main {
 	static mainWindow : BrowserWindow | null = null;
@@ -12,7 +13,9 @@ export default class Main {
 			height: 800,
 			width: 600,
 			webPreferences: {
-				nodeIntegration: true
+				preload: path.join(__dirname, 'preload.js'),
+				nodeIntegration: false,
+				contextIsolation: true
 			}
 		});
 
@@ -23,6 +26,11 @@ export default class Main {
 
 		Main.mainWindow.on("closed", () => {
 			Main.mainWindow = null;
+		});
+
+		ipcMain.on('test', (event, message) => {
+			console.log("Received test.", message);
+			event.reply('test', message);
 		});
 	}
 }
