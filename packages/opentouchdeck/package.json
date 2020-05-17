@@ -1,0 +1,24 @@
+{
+  "name": "opentouchdeck",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib",
+  "types": "lib/index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwell/opentouchdeck.git",
+    "directory": "packages/opentouchdeck"
+  },
+  "author": "Jason Parker <north@ntbox.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "oidc-provider": "^6.26.0",
+    "openid-client": "^3.15.1",
+    "superagent": "^5.2.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node lib/"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "opentouchdeck-client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib",
+  "types": "lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwell/opentouchdeck.git",
+    "directory": "packages/opentouchdeck-client"
+  },
+  "author": "Jason Parker <north@ntbox.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@types/node": "^12.12.39",
+    "opentouchdeck": "file:../opentouchdeck"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "electron lib/"
+  },
+  "devDependencies": {
+    "electron": "^8.3.0"
+  }
+}
