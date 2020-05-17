@@ -2,7 +2,6 @@
 
 ## Development
 
-After cloning this repository from git, run the following commands:
+After cloning this repository from git, run the following:
 
 	lerna bootstrap
-	lerna link convert

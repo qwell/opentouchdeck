@@ -16,8 +16,11 @@
     "@types/node": "^12.12.39",
     "electron": "^8.3.0"
   },
+  "devDependencies": {
+    "opentouchdeck": "^0.0.1"
+  },
   "peerDependencies": {
-    "opentouchdeck": "^v0.0.1"
+    "opentouchdeck": "^0.0.1"
   },
   "scripts": {
     "build": "tsc",
