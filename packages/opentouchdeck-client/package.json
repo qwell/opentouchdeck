@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "clean": "rm -rf lib/",
     "start": "electron lib/"
   }
 }
