@@ -1,0 +1,29 @@
+body {
+  margin: 40px;
+}
+
+.deck-page {
+  display: grid;
+  grid-template-columns: repeat(3, [col] 1fr);
+  grid-template-rows: repeat(4, [row] 1fr);
+  grid-gap: 10px;
+  background-color: #fff;
+  color: #444;
+}
+
+.deck-button {
+  position: relative;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 150%;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.deck-button>* {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
