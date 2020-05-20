@@ -1,17 +1,10 @@
-/*
-import ActionExecute from './Library/Classes/ActionExecute';
-import Action from './Library/Classes/Action';
-import Board from './Library/Classes/Board';
-import ConfigData from './Library/Configs/ConfigData';
-import ConfigJSON from './Library/Configs/ConfigJSON';
-*/
 import { ActionExecute, Board, ConfigData, ConfigJSON } from 'opentouchdeck';
 
 import Main from './Main';
 
 Main.start();
 
-const AE = new ActionExecute("Jason", "a thing", "/var/www/html");
+const AE = ActionExecute.fromJSON({"name": "Jason", "description": "a thing", "path": "/var/www/html"});
 AE.execute();
 
 const dataJSON = JSON.parse(`{

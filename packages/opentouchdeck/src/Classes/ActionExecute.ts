@@ -1,19 +1,24 @@
 import Action from './Action';
 
 export default class ActionExecute extends Action {
-	private _path: string;
+	private _path: string = "";
 
-	constructor(name: string, description: string, path: string) {
+	constructor(name: string, description: string, path: string = "") {
 		super(name, description);
 		this._path = path;
 	}
 
-	executePre() {
-		console.log(this.path);
+	static fromJSON(data : any = {}) : ActionExecute {
+		var action = new ActionExecute(data.name, data.description, data.path);
+		return action;
 	}
 
-	executePost() {
-		console.log(this.path);
+	protected executePre() {
+		console.log("Pre: " + this.path);
+	}
+
+	protected executePost() {
+		console.log("Post: " + this.path);
 	}
 
 	get path() {

@@ -1,10 +1,15 @@
 export default class Action {
-	name: string = "";
-	description: string = "";
+	private _name: string = "";
+	private _description: string = "";
 
-	constructor(name: string = "", description: string = "") {
-		this.name = name;
-		this.description = description;
+	protected constructor(name : string = "", description: string = "") {
+		this._name = name;
+		this._description = description;
+	}
+
+	protected static fromJSON(data : any = {}) : Action {
+		var action = new Action(data.name, data.description);
+		return action;
 	}
 
 	execute() {
@@ -20,13 +25,11 @@ export default class Action {
 	protected executePost() {
 	}
 
-/*
 	get name() {
-		return this.name;
+		return this._name;
 	}
 
 	get description() {
-		return this.description;
+		return this._description;
 	}
-*/
 }
