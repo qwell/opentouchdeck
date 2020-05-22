@@ -1,8 +1,8 @@
 import BaseAction from './Actions/BaseAction';
 import ActionExecute from './Actions/ActionExecute';
-import Board from './Classes/Board';
+import Page from './Pages/Page';
 
-export { BaseAction, ActionExecute, Board };
+export { BaseAction, ActionExecute, Page };
 
 import Config from './Configs/Config';
 import ConfigData from './Configs/ConfigData';

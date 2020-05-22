@@ -1,4 +1,4 @@
-import Board from '../Classes/Board';
+import Page from '../Pages/Page';
 export default class ConfigData {
-	boards: Board[] = [];
+	pages: Page[] = [];
 }
