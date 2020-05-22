@@ -1,4 +1,4 @@
-export default class Action {
+export default class BaseAction {
 	private _name: string = "";
 	private _description: string = "";
 
@@ -7,8 +7,8 @@ export default class Action {
 		this._description = description;
 	}
 
-	protected static fromJSON(data : any = {}) : Action {
-		var action = new Action(data.name, data.description);
+	protected static fromJSON(data : any = {}) : BaseAction {
+		var action = new BaseAction(data.name, data.description);
 		return action;
 	}
 

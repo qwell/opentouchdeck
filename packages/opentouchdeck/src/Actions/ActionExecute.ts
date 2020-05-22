@@ -1,6 +1,6 @@
-import Action from './Action';
+import BaseAction from './BaseAction';
 
-export default class ActionExecute extends Action {
+export default class ActionExecute extends BaseAction {
 	private _path: string = "";
 
 	constructor(name: string, description: string, path: string = "") {
