@@ -9,7 +9,7 @@ export default class Page {
 		page.title = data.title;
 
 		if (data.positions) {
-			data.position.forEach(function(data : any) {
+			data.positions.forEach(function(data : any) {
 				let position : Position = Position.fromJSON(data);
 				page.positions.push(position);
 			});

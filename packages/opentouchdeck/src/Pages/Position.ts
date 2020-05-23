@@ -11,7 +11,7 @@ export default class Position {
 
 	static fromJSON(data : any = {}) : Position {
 		let button : Button = Button.fromJSON(data.button);
-		let position : Position = new Position(data.number, button);
+		let position : Position = new Position(data.position, button);
 
 		return position;
 	}
