@@ -17,7 +17,7 @@
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
     <ScriptArguments>
     </ScriptArguments>
-    <NodeExePath>C:\Users\north\source\repos\opentouchdeck\node_modules\electron\dist\electron.exe</NodeExePath>
+    <NodeExePath>node_modules\electron\dist\electron.exe</NodeExePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
