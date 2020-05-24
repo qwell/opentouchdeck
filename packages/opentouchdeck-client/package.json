@@ -1,5 +1,5 @@
 {
-  "name": "opentouchdeck-client",
+  "name": "@opentouchdeck/opentouchdeck-client",
   "version": "0.0.1",
   "description": "",
   "main": "lib",
@@ -18,14 +18,14 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "opentouchdeck": "^0.0.1"
+    "@opentouchdeck/opentouchdeck": "^0.0.1"
   },
   "peerDependencies": {
-    "opentouchdeck": "^0.0.1"
+    "@opentouchdeck/opentouchdeck": "^0.0.1"
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf lib/",
+    "clean": "rimraf lib/",
     "start": "electron lib/"
   }
 }

@@ -3,18 +3,21 @@
     "packages/*"
   ],
   "private": true,
-  "name": "opentouchdeck-packaging",
+  "name": "opentouchdeck",
   "author": "Jason Parker <north@ntbox.com>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "lerna": "^3.21.0"
+    "lerna": "^3.21.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.3"
   },
   "scripts": {
     "build": "lerna run build",
-    "clean": "lerna run clean"
+    "clean": "lerna run clean",
+    "start": "lerna run start"
   },
   "dependencies": {
-    "opentouchdeck": "file:packages/opentouchdeck",
-    "opentouchdeck-client": "file:packages/opentouchdeck-client"
+    "@opentouchdeck/opentouchdeck": "file:packages/opentouchdeck",
+    "@opentouchdeck/opentouchdeck-client": "file:packages/opentouchdeck-client"
   }
 }

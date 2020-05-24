@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ActionExecute, Page, ConfigData, ConfigJSON } from 'opentouchdeck';
+import { ActionExecute, Page, ConfigData, ConfigJSON } from '@opentouchdeck/opentouchdeck';
 
 import Main from './Main';
 

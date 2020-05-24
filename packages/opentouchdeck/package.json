@@ -1,5 +1,5 @@
 {
-  "name": "opentouchdeck",
+  "name": "@opentouchdeck/opentouchdeck",
   "version": "0.0.1",
   "description": "",
   "main": "lib",
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf lib/",
+    "clean": "rimraf lib/",
     "start": "node lib/"
   }
 }
