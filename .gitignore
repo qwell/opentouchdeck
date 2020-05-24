@@ -1,3 +1,6 @@
 package-lock.json
 /packages/*/lib/
 node_modules/
+bin/
+obj/
+.vs/
