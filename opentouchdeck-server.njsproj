@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="packages\opentouchdeck-server\src\index.ts" />
+    <TypeScriptCompile Include="packages\opentouchdeck-server\src\RESTService.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\ActionExecute.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\ActionList.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\BaseAction.ts" />

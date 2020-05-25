@@ -1,14 +1,13 @@
 import { ActionList, ActionExecute, BaseAction, BaseActionData } from '@opentouchdeck/opentouchdeck';
 import { ConfigData, ConfigJSON, Page } from '@opentouchdeck/opentouchdeck';
-import { API } from '@opentouchdeck/opentouchdeck';
-import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
+import RESTService from './RESTService';
 
 const DEFAULT_PORT = 2501;
 
-let actions: any[] = [
-    ActionExecute
+const actions: typeof BaseAction[] = [
+    ActionExecute,
 ];
 
 actions.forEach(action => ActionList.registerAction(new action()));
@@ -34,18 +33,5 @@ if (dataJSON.pages !== undefined) {
 var conf = new ConfigJSON(data);
 conf.show();
 
-let apiotd: API = new API();
-let rAPI = express();
-let server = rAPI.listen(DEFAULT_PORT);
-
-rAPI.get('/actions', async (req: any, res) => {
-    res.send(apiotd.actions.getActions());
-});
-
-rAPI.get('/actions/:name', async (req: any, res) => {
-    res.send(apiotd.actions.getAction(req.params.name));
-});
-
-rAPI.post('/buttons/:button', async (req: any, res) => {
-    res.send(apiotd.buttons.buttonEvent(req.params.button))
-});
+let rService = new RESTService(DEFAULT_PORT);
+rService.start();
