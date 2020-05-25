@@ -7,12 +7,6 @@ export default class Config {
 		this.data = data;
 	}
 
-/*
-	protected get data() {
-		return this._data;
-	}
-*/
-
 	protected read() {
 	}
 

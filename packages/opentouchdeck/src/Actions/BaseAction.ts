@@ -1,35 +1,15 @@
+import BaseActionData from './BaseActionData';
+
 export default class BaseAction {
-	private _name: string = "";
-	private _description: string = "";
+    readonly name: string = "UNKNOWN";
+    readonly description: string = "An unknown action.";
 
-	protected constructor(name : string = "", description: string = "") {
-		this._name = name;
-		this._description = description;
-	}
+    constructor(data: any = {}) {
+    }
 
-	protected static fromJSON(data : any = {}) : BaseAction {
-		var action = new BaseAction(data.name, data.description);
-		return action;
-	}
-
-	execute() {
-		this.executePre();
-		console.log(this.name);
-		console.log(this.description);
-		this.executePost();
-	}
-
-	protected executePre() {
-	}
-
-	protected executePost() {
-	}
-
-	get name() {
-		return this._name;
-	}
-
-	get description() {
-		return this._description;
-	}
+    createActionData(data: any = {}): BaseActionData {
+        return new BaseActionData();
+    }
 }
+
+export { BaseActionData };

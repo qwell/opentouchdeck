@@ -1,27 +1,16 @@
 import BaseAction from './BaseAction';
+import ActionDataExecute from './ActionDataExecute';
 
 export default class ActionExecute extends BaseAction {
-	private _path: string = "";
+    name = "Execute";
+    description = "Executes a system script/executable.";
 
-	constructor(name: string, description: string, path: string = "") {
-		super(name, description);
-		this._path = path;
-	}
+    constructor() {
+        super();
+    }
 
-	static fromJSON(data : any = {}) : ActionExecute {
-		var action = new ActionExecute(data.name, data.description, data.path);
-		return action;
-	}
-
-	protected executePre() {
-		console.log("Pre: " + this.path);
-	}
-
-	protected executePost() {
-		console.log("Post: " + this.path);
-	}
-
-	get path() {
-		return this._path;
-	}
+    createActionData(data: any = {}): ActionDataExecute {
+        return new ActionDataExecute(data);
+    }
 }
+export { ActionDataExecute };

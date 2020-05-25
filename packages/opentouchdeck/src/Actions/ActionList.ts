@@ -1,25 +1,23 @@
 import BaseAction from './BaseAction';
 
 export default class ActionList {
-	private static actions : ActionRegistration[] = [];
+    private static actions: BaseAction[] = [];
 
-	static registerAction(actionName : string, action : BaseAction) {
-		if (!this.actions.some(actionRegistration => name === actionRegistration.name)) {
-			this.actions.push(new ActionRegistration(name, action));
-		}
-	}
+    static registerAction(action: BaseAction) {
+        if (!this.actions.some(registeredAction => action.name === registeredAction.name)) {
+            this.actions.push(action);
+        }
+    }
 
-	static unregisterAction(actionName : string) {
-		this.actions = this.actions.filter(actionRegistration => actionRegistration.name === actionName);
-	}
-}
+    static unregisterAction(actionName: string) {
+        this.actions = this.actions.filter(registeredAction => registeredAction.name === actionName);
+    }
 
-class ActionRegistration {
-	name : string;
-	action : BaseAction;
+    static getActions(): BaseAction[] {
+        return ActionList.actions;
+    }
 
-	constructor(name : string, action : BaseAction) {
-		this.name = name;
-		this.action = action;
-	}
+    static getAction(actionName: string): BaseAction | undefined {
+        return ActionList.actions.find(action => action.name === actionName);
+    }
 }

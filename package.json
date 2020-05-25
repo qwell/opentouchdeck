@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@opentouchdeck/opentouchdeck": "file:packages/opentouchdeck",
-    "@opentouchdeck/opentouchdeck-client": "file:packages/opentouchdeck-client"
+    "@opentouchdeck/opentouchdeck-client": "file:packages/opentouchdeck-client",
+    "@opentouchdeck/opentouchdeck-server": "file:packages/opentouchdeck-server"
   }
 }

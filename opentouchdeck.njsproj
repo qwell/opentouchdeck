@@ -23,6 +23,12 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="*.json" />
+    <Content Include="packages\opentouchdeck-server\package.json">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="packages\opentouchdeck-server\tsconfig.json">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
     <Content Include="packages\opentouchdeck\*.json" />
     <Content Include="packages\opentouchdeck-client\*.json" />
@@ -31,11 +37,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="packages" />
+    <Folder Include="packages\opentouchdeck-server\" />
     <Folder Include="packages\opentouchdeck" />
     <Folder Include="packages\opentouchdeck-client" />
     <Folder Include="packages\opentouchdeck-client\css\" />
     <Folder Include="packages\opentouchdeck-client\html\" />
     <Folder Include="packages\opentouchdeck-client\src\" />
+    <Folder Include="packages\opentouchdeck-server\src\" />
     <Folder Include="packages\opentouchdeck\src\" />
     <Folder Include="packages\opentouchdeck\src\Actions\" />
     <Folder Include="packages\opentouchdeck\src\Buttons\" />
@@ -47,9 +55,16 @@
     <TypeScriptCompile Include="packages\opentouchdeck-client\src\Main.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck-client\src\preload.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck-client\src\renderer.index.ts" />
+    <TypeScriptCompile Include="packages\opentouchdeck-server\src\index.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\ActionExecute.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\ActionList.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\BaseAction.ts" />
+    <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\BaseActionData.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\ActionDataExecute.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="packages\opentouchdeck\src\Buttons\Button.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Buttons\ButtonData.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Configs\Config.ts" />
