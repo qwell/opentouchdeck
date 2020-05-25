@@ -16,3 +16,7 @@ import ConfigData from './Configs/ConfigData';
 import ConfigJSON from './Configs/ConfigJSON';
 
 export { Config, ConfigData, ConfigJSON };
+
+import API from './API/API';
+
+export { API };

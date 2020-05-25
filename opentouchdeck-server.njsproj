@@ -31,6 +31,7 @@
     <Folder Include="packages\opentouchdeck" />
     <Folder Include="packages\opentouchdeck\src\" />
     <Folder Include="packages\opentouchdeck\src\Actions\" />
+    <Folder Include="packages\opentouchdeck\src\API\" />
     <Folder Include="packages\opentouchdeck\src\Buttons\" />
     <Folder Include="packages\opentouchdeck\src\Configs\" />
     <Folder Include="packages\opentouchdeck\src\Pages\" />
@@ -44,6 +45,9 @@
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\BaseAction.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\BaseActionData.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Actions\ActionDataExecute.ts" />
+    <TypeScriptCompile Include="packages\opentouchdeck\src\API\API.ts" />
+    <TypeScriptCompile Include="packages\opentouchdeck\src\API\ActionsAPI.ts" />
+    <TypeScriptCompile Include="packages\opentouchdeck\src\API\ButtonsAPI.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Buttons\Button.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Buttons\ButtonData.ts" />
     <TypeScriptCompile Include="packages\opentouchdeck\src\Configs\Config.ts" />

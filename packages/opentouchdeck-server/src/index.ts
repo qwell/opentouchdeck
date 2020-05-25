@@ -1,5 +1,6 @@
 import { ActionList, ActionExecute, BaseAction, BaseActionData } from '@opentouchdeck/opentouchdeck';
 import { ConfigData, ConfigJSON, Page } from '@opentouchdeck/opentouchdeck';
+import { API } from '@opentouchdeck/opentouchdeck';
 import * as express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -33,13 +34,18 @@ if (dataJSON.pages !== undefined) {
 var conf = new ConfigJSON(data);
 conf.show();
 
-let apiotd = express();
-let server = apiotd.listen(DEFAULT_PORT);
+let apiotd: API = new API();
+let rAPI = express();
+let server = rAPI.listen(DEFAULT_PORT);
 
-apiotd.get('/actions', async (req: any, res) => {
-    res.send(ActionList.getActions());
+rAPI.get('/actions', async (req: any, res) => {
+    res.send(apiotd.actions.getActions());
 });
 
-apiotd.get('/actions/:actionName', async (req: any, res) => {
-    res.send(ActionList.getAction(req.params.actionName));
+rAPI.get('/actions/:name', async (req: any, res) => {
+    res.send(apiotd.actions.getAction(req.params.name));
+});
+
+rAPI.post('/buttons/:button', async (req: any, res) => {
+    res.send(apiotd.buttons.buttonEvent(req.params.button))
 });
