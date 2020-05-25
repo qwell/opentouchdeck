@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "opentouchdeck", "opentouchdeck.njsproj", "{B5B16ED9-C103-46D0-87A4-947BA6D92D6C}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "opentouchdeck-client", "opentouchdeck-client.njsproj", "{B5B16ED9-C103-46D0-87A4-947BA6D92D6C}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "opentouchdeck-server", "opentouchdeck-server.njsproj", "{831771A5-062A-40BC-A0D2-1DE626359E2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B5B16ED9-C103-46D0-87A4-947BA6D92D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5B16ED9-C103-46D0-87A4-947BA6D92D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5B16ED9-C103-46D0-87A4-947BA6D92D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831771A5-062A-40BC-A0D2-1DE626359E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831771A5-062A-40BC-A0D2-1DE626359E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831771A5-062A-40BC-A0D2-1DE626359E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831771A5-062A-40BC-A0D2-1DE626359E2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

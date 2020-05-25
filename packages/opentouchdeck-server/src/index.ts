@@ -1,5 +1,8 @@
 import { ActionList, ActionExecute, BaseAction, BaseActionData } from '@opentouchdeck/opentouchdeck';
+import { ConfigData, ConfigJSON, Page } from '@opentouchdeck/opentouchdeck';
 import * as express from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const DEFAULT_PORT = 2501;
 
@@ -15,6 +18,20 @@ if (action) {
     const AE: BaseActionData = action.createActionData({ "path": "/var/www/html" });
     AE.execute();
 }
+
+const configContents = fs.readFileSync(path.join(__dirname, '../testconfig.json'), 'utf8');
+const dataJSON = JSON.parse(configContents);
+
+var data: ConfigData = new ConfigData();
+
+if (dataJSON.pages !== undefined) {
+    dataJSON.pages.forEach(function (page: Page) {
+        data.pages.push(Page.fromJSON(page));
+    });
+}
+
+var conf = new ConfigJSON(data);
+conf.show();
 
 let apiotd = express();
 let server = apiotd.listen(DEFAULT_PORT);
