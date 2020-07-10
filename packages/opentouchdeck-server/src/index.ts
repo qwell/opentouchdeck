@@ -1,5 +1,7 @@
-import { ActionList, ActionExecute, BaseAction, BaseActionData } from '@opentouchdeck/opentouchdeck';
-import { ConfigData, ConfigJSON, Page } from '@opentouchdeck/opentouchdeck';
+import {
+    ActionList, ActionExecute, BaseAction, BaseActionData,
+    ConfigData, ConfigJSON, Page
+} from '@opentouchdeck/opentouchdeck';
 import * as fs from 'fs';
 import * as path from 'path';
 import RESTService from './RESTService';
@@ -13,9 +15,9 @@ const actions: typeof BaseAction[] = [
 actions.forEach(action => ActionList.registerAction(new action()));
 
 const action: BaseAction | undefined = ActionList.getAction("Execute");
-console.log("abc", action, "def");
+console.log(action);
 if (action) {
-    const AE: BaseActionData = action.createActionData({ "path": "/var/www/html" });
+    const AE: BaseActionData = action.createActionData({ "path": "/var/www/html", "args": ["arg1", "arg2"] });
     AE.execute();
 }
 
