@@ -7,7 +7,6 @@ export default class ButtonData {
     private constructor(data: any = {}) {
         const action: BaseAction | undefined = ActionList.getAction(data.action);
         if (action) {
-            console.log(action)
             this.actionData = action.createActionData(data);
         }
     }

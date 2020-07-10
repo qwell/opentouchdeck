@@ -1,4 +1,5 @@
 import Config from './Config';
+import { ConfigData } from '..';
 
 export default class ConfigJSON extends Config {
 	constructor(data: any) {
@@ -6,6 +7,6 @@ export default class ConfigJSON extends Config {
 	}
 
 	show() {
-		console.log(JSON.stringify(this.data));
+		console.log(JSON.stringify(ConfigData.getPages()));
 	}
 }

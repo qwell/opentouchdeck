@@ -10,4 +10,8 @@ export default class ConfigData {
     static getPage(pageTitle: string): Page | undefined {
         return ConfigData.pages.find(page => page.title === pageTitle);
     }
+
+    static getPages(): Page[] {
+        return this.pages;
+    }
 }
