@@ -1,11 +1,11 @@
 import Button from '../Buttons/Button';
 
 export default class Position {
-	position : number;
+	index : number;
 	button : Button;
 
 	private constructor(position : number, button : Button) {
-		this.position = position;
+		this.index = position;
 		this.button = button;
 	}
 

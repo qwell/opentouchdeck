@@ -1,0 +1,12 @@
+[
+  {
+    "action": "Execute",
+    "path": "/var/www/html",
+    "args": [ "arg1", "arg2" ]
+  },
+  {
+    "action": "URL",
+    "url": "https://twitch.tv/northantara",
+    "background": false
+  }
+]

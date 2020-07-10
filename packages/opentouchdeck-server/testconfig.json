@@ -6,7 +6,9 @@
         {
           "position": 0,
           "button": {
-            "": ""
+            "action": "Execute",
+            "path": "/var/www/html",
+            "args": [ "arg1", "arg2" ]
           }
         }
       ]

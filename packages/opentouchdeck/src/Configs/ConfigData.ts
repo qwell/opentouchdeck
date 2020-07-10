@@ -1,4 +1,13 @@
 import Page from '../Pages/Page';
+
 export default class ConfigData {
-	pages: Page[] = [];
+    private static pages: Page[] = [];
+
+    static addPage(page: Page) {
+        this.pages.push(page)
+    }
+
+    static getPage(pageTitle: string): Page | undefined {
+        return ConfigData.pages.find(page => page.title === pageTitle);
+    }
 }
