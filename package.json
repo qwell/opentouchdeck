@@ -7,14 +7,15 @@
   "author": "Jason Parker <north@ntbox.com>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "lerna": "^3.21.0",
+    "lerna": "^3.22.1",
     "rimraf": "^3.0.2",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "build": "lerna run build",
     "clean": "lerna run clean",
-    "start": "lerna run start"
+    "client": "lerna run client",
+    "server": "lerna run server"
   },
   "dependencies": {
     "@opentouchdeck/opentouchdeck": "file:packages/opentouchdeck",

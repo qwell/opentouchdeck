@@ -26,6 +26,6 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib/",
-    "start": "node lib/"
+    "server": "node lib/"
   }
 }

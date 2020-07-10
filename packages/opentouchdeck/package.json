@@ -13,7 +13,6 @@
   "license": "GPL-3.0",
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf lib/",
-    "start": "node lib/"
+    "clean": "rimraf lib/"
   }
 }

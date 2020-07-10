@@ -26,6 +26,6 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib/",
-    "start": "electron lib/"
+    "client": "electron lib/"
   }
 }
