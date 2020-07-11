@@ -1,14 +1,19 @@
 {
   "pages": [
     {
-      "title": "TestPage",
+      "title": "default",
       "positions": [
         {
           "position": 0,
           "button": {
-            "action": "Execute",
-            "path": "/var/www/html",
-            "args": [ "arg1", "arg2" ]
+            "action": {
+              "name": "Counter"
+            },
+            "buttonInfo": {
+              "type": "increment",
+              "value": 1,
+              "variable": "fooCounter"
+            }
           }
         }
       ]

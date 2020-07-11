@@ -1,6 +1,9 @@
 import {
-    ActionList, ActionExecute, ActionURL, BaseAction, BaseActionData,
-    ConfigData, ConfigJSON, Page
+    ActionList,
+    BaseAction,
+    ActionCounter, ActionExecute, ActionURL,
+    ConfigData, ConfigJSON,
+    Page
 } from '@opentouchdeck/opentouchdeck';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -12,6 +15,7 @@ const DEFAULT_PORT = 2501;
  * List of built-in actions to register
  */
 const actions: typeof BaseAction[] = [
+    ActionCounter,
     ActionExecute,
     ActionURL,
 ];
@@ -21,6 +25,7 @@ actions.forEach(action => ActionList.registerAction(new action()));
 /*
  * Load and test list of actions.
  */
+/*
 const actionsContents = fs.readFileSync(path.join(__dirname, '../testactions.json'), 'utf8');
 const actionData = JSON.parse(actionsContents);
 actionData.forEach(function (data: any = {}) {
@@ -33,6 +38,7 @@ actionData.forEach(function (data: any = {}) {
         console.log("Action type '" + data.action + "' could not be found.");
     }
 });
+*/
 
 const configContents = fs.readFileSync(path.join(__dirname, '../testconfig.json'), 'utf8');
 const dataJSON = JSON.parse(configContents);
