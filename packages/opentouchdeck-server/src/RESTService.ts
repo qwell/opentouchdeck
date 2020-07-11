@@ -13,7 +13,14 @@ export default class RESTService {
     start() {
         let app = express();
 
+        app.use(express.json()); // to support JSON-encoded bodies
+        app.use(express.urlencoded());  // to support URL-encoded bodies
+
         app.listen(this.port);
+
+        app.get('/system/reload', async (req: any, res) => {
+            res.send(this.apiotd.system.reloadConfig());
+        });
 
         app.get('/actions', async (req: any, res) => {
             res.send(this.apiotd.actions.getActions());
@@ -24,7 +31,7 @@ export default class RESTService {
         });
 
         app.post('/buttons/:button', async (req: any, res) => {
-            res.send(this.apiotd.buttons.buttonEvent(req.params.button))
+            res.send(this.apiotd.buttons.buttonEvent(req.params.button, req.body))
         });
     }
 }

@@ -3,14 +3,14 @@ export default class BaseActionData {
 
     }
 
-    execute() {
-        this.executePre();
-        this.executePost();
+    execute(data: any = {}, params: any = {}) {
+        this.executePre(data, params);
+        this.executePost(data, params);
     }
 
-    protected executePre() {
+    protected executePre(data: any = {}, params: any = {}) {
     }
 
-    protected executePost() {
+    protected executePost(data: any = {}, params: any = {}) {
     }
 }
