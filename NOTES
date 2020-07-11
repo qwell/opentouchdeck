@@ -1,0 +1,80 @@
+Open Touchdeck
+otdapi
+
+core library
+	configuration > JSON
+		decks
+		pages
+		buttons
+	actions
+		exec
+		URL
+			foreground
+				client-side?
+			background
+				store/broadcast response?
+		HID/input
+			keyboard-only for now
+		audio
+			play/pause/stop
+			prev/next
+			volume
+			mic mute/unmute
+			cheat and use keyboard commands?
+				volume becomes tricky
+		soundboard
+			play/stop file
+		counter
+			+1 / -1 / reset
+		time
+			timer / stopwatch / clock
+		RNG
+			dice
+			coins
+			rock, paper, scissors
+		screenshot
+			fullscreen
+			specific window
+			pre-defined rect?
+	?triggers
+		?
+	plugin handler
+		register/unregister
+		do hook magic
+	"builtin"(/"preinstalled"?) plugins
+		Twitch
+		OBS
+	client API implementation
+
+otd-server
+	websocket wrapper for client API (plugin?)
+		electron
+		web
+		mobile
+	REST/pubsub wrapper for client API (plugin?)
+		idkmybffJill?
+	configuration management UI
+	plugin management UI
+
+otd-client
+	client UI
+	get deck configuration from otd-server
+	send/receive messages to otd-server
+
+plugin contents
+	assets
+	component (actions, etc) registration
+	component callbacks
+	UI info (described via JSON?)
+	new API endpoints
+
+potential plugins
+	twitter
+	discord
+	SL-OBS
+	IFTTT
+	livesplit
+	youtube
+	spotify
+	pandora
+	weather
