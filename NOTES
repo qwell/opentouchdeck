@@ -3,7 +3,7 @@ otdapi
 
 core library
 	configuration > JSON
-		decks
+		decks (config profiles)
 		pages
 		buttons
 	actions
