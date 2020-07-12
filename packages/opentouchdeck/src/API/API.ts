@@ -1,9 +1,9 @@
 import ActionsAPI from "./ActionsAPI";
 import ButtonsAPI from "./ButtonsAPI";
-import SystemAPI from "./SystemAPI";
+import ConfigAPI from "./ConfigAPI";
 
 export default class API {
     readonly actions = new ActionsAPI();
     readonly buttons = new ButtonsAPI();
-    readonly system = new SystemAPI();
+    readonly config = new ConfigAPI();
 }

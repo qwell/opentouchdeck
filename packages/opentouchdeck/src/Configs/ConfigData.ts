@@ -14,4 +14,8 @@ export default class ConfigData {
     static getPages(): Page[] {
         return this.pages;
     }
+
+    static clear() {
+        this.pages = [];
+    }
 }

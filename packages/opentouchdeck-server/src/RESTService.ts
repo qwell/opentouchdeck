@@ -1,13 +1,15 @@
 import { API } from '@opentouchdeck/opentouchdeck';
+
 import * as express from 'express';
+import * as path from 'path';
 
 export default class RESTService {
     private port: number;
     private apiotd: API;
 
-    constructor(port: number) {
+    constructor(port: number, apiotd: API = new API()) {
         this.port = port;
-        this.apiotd = new API();
+        this.apiotd = apiotd;
     }
 
     start() {
@@ -18,8 +20,12 @@ export default class RESTService {
 
         app.listen(this.port);
 
-        app.get('/system/reload', async (req: any, res) => {
-            res.send(this.apiotd.system.reloadConfig());
+        app.get('/config/load', async (req: any, res) => {
+            res.send(this.apiotd.config.loadConfig(path.join(__dirname, '../testconfig.json')));
+        });
+
+        app.get('/config/reload', async (req: any, res) => {
+            res.send(this.apiotd.config.reloadConfig(path.join(__dirname, '../testconfig.json')));
         });
 
         app.get('/actions', async (req: any, res) => {

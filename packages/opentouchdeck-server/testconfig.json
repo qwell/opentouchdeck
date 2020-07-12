@@ -10,8 +10,8 @@
               "name": "Counter"
             },
             "buttonInfo": {
-              "type": "increment",
-              "value": 1,
+              "type": "set",
+              "value": 42,
               "variable": "fooCounter"
             }
           }

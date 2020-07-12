@@ -3,11 +3,11 @@ import {
     BaseAction,
     ActionCounter, ActionExecute, ActionURL,
     ConfigData, ConfigJSON,
-    Page
+    API
 } from '@opentouchdeck/opentouchdeck';
-import * as fs from 'fs';
-import * as path from 'path';
 import RESTService from './RESTService';
+
+import * as path from 'path';
 
 const DEFAULT_PORT = 2501;
 
@@ -40,17 +40,11 @@ actionData.forEach(function (data: any = {}) {
 });
 */
 
-const configContents = fs.readFileSync(path.join(__dirname, '../testconfig.json'), 'utf8');
-const dataJSON = JSON.parse(configContents);
-
-if (dataJSON.pages !== undefined) {
-    dataJSON.pages.forEach(function (page: Page) {
-        ConfigData.addPage(Page.fromJSON(page));
-    });
-}
+var apiotd = new API();
+apiotd.config.loadConfig(path.join(__dirname, '../testconfig.json'));
 
 var conf = new ConfigJSON(ConfigData);
 conf.show();
 
-let rService = new RESTService(DEFAULT_PORT);
+let rService = new RESTService(DEFAULT_PORT, apiotd);
 rService.start();
