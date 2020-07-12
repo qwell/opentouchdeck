@@ -1,6 +1,10 @@
 export default class Variables {
     private static storage: Variable[] = [];
 
+    static getVariables(): string[] {
+        return this.storage.map(variable => variable.name);
+    }
+
     static getVariable(variableName: string): any {
         var found = this.storage.find(item => item.name === variableName);
         if (found !== undefined) {

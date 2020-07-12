@@ -58,7 +58,6 @@ export default class RESTService {
             res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button), req.body))
         });
 
-        /*
         app.get('/variables', async (req: any, res) => {
             res.send(this.apiotd.variables.getVariables());
         });
@@ -70,8 +69,5 @@ export default class RESTService {
         app.post('/variable/:name', async (req: any, res) => {
             res.send(this.apiotd.variables.setVariable(req.params.name, req.body));
         });
-        */
-
-
     }
 }
