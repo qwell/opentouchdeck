@@ -21,10 +21,12 @@ export default class RESTService {
         app.listen(this.port);
 
         app.get('/config/load', async (req: any, res) => {
+            // TODO Store config filename in variable storage
             res.send(this.apiotd.config.loadConfig(path.join(__dirname, '../testconfig.json')));
         });
 
         app.get('/config/reload', async (req: any, res) => {
+            // TODO Store config filename in variable storage
             res.send(this.apiotd.config.reloadConfig(path.join(__dirname, '../testconfig.json')));
         });
 
@@ -36,8 +38,40 @@ export default class RESTService {
             res.send(this.apiotd.actions.getAction(req.params.name));
         });
 
-        app.post('/buttons/:button', async (req: any, res) => {
-            res.send(this.apiotd.buttons.buttonEvent(req.params.button, req.body))
+        app.get('/pages', async (req: any, res) => {
+            res.send(this.apiotd.pages.getPages());
         });
+
+        app.get('/page/:page', async (req: any, res) => {
+            res.send(this.apiotd.pages.getPage(req.params.page));
+        });
+
+        app.get('/page/:page/buttons', async (req: any, res) => {
+            res.send(this.apiotd.buttons.getButtons(req.params.page));
+        });
+
+        app.get('/page/:page/button/:button', async (req: any, res) => {
+            res.send(this.apiotd.buttons.getButton(req.params.page, Number(req.params.button)));
+        });
+
+        app.post('/page/:page/button/:button/event', async (req: any, res) => {
+            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button), req.body))
+        });
+
+        /*
+        app.get('/variables', async (req: any, res) => {
+            res.send(this.apiotd.variables.getVariables());
+        });
+ 
+        app.get('/variable/:name', async (req: any, res) => {
+            res.send(this.apiotd.variables.getVariable(req.params.name));
+        });
+ 
+        app.post('/variable/:name', async (req: any, res) => {
+            res.send(this.apiotd.variables.setVariable(req.params.name, req.body));
+        });
+        */
+
+
     }
 }

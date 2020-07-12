@@ -1,4 +1,5 @@
 import BaseAction from './BaseAction';
+import BaseActionData from './BaseActionData';
 import ActionDataURL from './ActionDataURL';
 
 export default class ActionURL extends BaseAction {
@@ -9,7 +10,7 @@ export default class ActionURL extends BaseAction {
         super();
     }
 
-    createActionData(data: any = {}): ActionDataURL {
+    createActionData(data: any = {}): BaseActionData {
         return new ActionDataURL(data);
     }
 }

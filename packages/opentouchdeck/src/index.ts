@@ -2,6 +2,7 @@ import ActionList from './Actions/ActionList';
 import BaseAction, { BaseActionData } from './Actions/BaseAction';
 import ActionCounter, { ActionDataCounter } from './Actions/ActionCounter';
 import ActionExecute, { ActionDataExecute } from './Actions/ActionExecute';
+import ActionRandom, { ActionDataRandom } from './Actions/ActionRandom';
 import ActionURL, { ActionDataURL } from './Actions/ActionURL';
 
 export {
@@ -9,6 +10,7 @@ export {
     BaseAction, BaseActionData,
     ActionCounter, ActionDataCounter,
     ActionExecute, ActionDataExecute,
+    ActionRandom, ActionDataRandom,
     ActionURL, ActionDataURL
 };
 

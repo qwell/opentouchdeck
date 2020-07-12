@@ -11,7 +11,15 @@ export default class ActionDataCounter extends BaseActionData {
         if (counter === undefined) {
             counter = 0;
         }
+
         console.log("Pre: " + counter);
+    }
+
+    protected executePost(data: any = {}) {
+        var counter: number = Variables.getVariable(data.variable);
+        if (counter === undefined) {
+            counter = 0;
+        }
 
         switch (data.type) {
             case "increment":
@@ -26,13 +34,7 @@ export default class ActionDataCounter extends BaseActionData {
 
         }
         Variables.setVariable(data.variable, counter)
-    }
 
-    protected executePost(data: any = {}) {
-        var counter: number = Variables.getVariable(data.variable);
-        if (counter === undefined) {
-            counter = 0;
-        }
         console.log("Post: " + counter);
     }
 }

@@ -1,7 +1,7 @@
 import {
     ActionList,
     BaseAction,
-    ActionCounter, ActionExecute, ActionURL,
+    ActionCounter, ActionExecute, ActionRandom, ActionURL,
     ConfigData, ConfigJSON,
     API
 } from '@opentouchdeck/opentouchdeck';
@@ -17,6 +17,7 @@ const DEFAULT_PORT = 2501;
 const actions: typeof BaseAction[] = [
     ActionCounter,
     ActionExecute,
+    ActionRandom,
     ActionURL,
 ];
 
@@ -41,6 +42,7 @@ actionData.forEach(function (data: any = {}) {
 */
 
 var apiotd = new API();
+// TODO Store config filename in variable storage
 apiotd.config.loadConfig(path.join(__dirname, '../testconfig.json'));
 
 var conf = new ConfigJSON(ConfigData);

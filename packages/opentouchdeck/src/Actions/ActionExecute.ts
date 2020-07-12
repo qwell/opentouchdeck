@@ -1,4 +1,5 @@
 import BaseAction from './BaseAction';
+import BaseActionData from './BaseActionData';
 import ActionDataExecute from './ActionDataExecute';
 
 export default class ActionExecute extends BaseAction {
@@ -9,7 +10,7 @@ export default class ActionExecute extends BaseAction {
         super();
     }
 
-    createActionData(data: any = {}): ActionDataExecute {
+    createActionData(data: any = {}): BaseActionData {
         return new ActionDataExecute(data);
     }
 }

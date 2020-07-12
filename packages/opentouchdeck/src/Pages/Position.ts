@@ -1,6 +1,7 @@
 import Button from '../Buttons/Button';
 
 export default class Position {
+	// TODO Simplify this.  I'm pretty sure Position ~= Button
 	index : number;
 	button : Button;
 

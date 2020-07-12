@@ -1,4 +1,5 @@
 import BaseAction from './BaseAction';
+import BaseActionData from './BaseActionData';
 import ActionDataCounter from './ActionDataCounter';
 
 export default class ActionCounter extends BaseAction {
@@ -9,7 +10,7 @@ export default class ActionCounter extends BaseAction {
         super();
     }
 
-    createActionData(data: any = {}): ActionDataCounter {
+    createActionData(data: any = {}): BaseActionData {
         return new ActionDataCounter(data);
     }
 }
