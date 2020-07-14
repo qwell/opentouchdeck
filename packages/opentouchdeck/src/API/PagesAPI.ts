@@ -5,7 +5,7 @@ import ConfigData from '../Configs/ConfigData';
 import { BaseActionData } from '..';
 
 export default class PagesAPI {
-    getPages(): Page[] {
+    getPages(): string[] {
         return ConfigData.getPages();
     }
     getPage(pageName: string): Page | undefined {

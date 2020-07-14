@@ -1,17 +1,19 @@
 import Button from '../Buttons/Button';
+import ConfigData from '../Configs/ConfigData';
 import Page from '../Pages/Page';
 import Position from '../Pages/Position';
-import ConfigData from '../Configs/ConfigData';
+import Variables from '../Variables';
 import { BaseActionData } from '..';
 
 export default class ButtonsAPI {
-    getButtons(pageName: string): Position[] {
+    getButtons(pageName: string): number[] {
+        var buttonList: number[] = [];
         const page: Page | undefined = ConfigData.getPage(pageName);
         // TODO Get rid of this nesting, once var? is figured out
         if (page !== undefined) {
-            return page.positions;
+            page.positions.forEach(position => buttonList.push(position.index));
         }
-        return [];
+        return buttonList;
     }
 
     getButton(pageName: string, buttonPosition: number) {
@@ -29,7 +31,7 @@ export default class ButtonsAPI {
         return null;
     }
 
-    buttonEvent(pageName: string, buttonPosition: number, buttonParams: any = {}): string {
+    buttonEvent(pageName: string, buttonPosition: number, buttonParams: any = {}): any {
         const page: Page | undefined = ConfigData.getPage(pageName);
         // TODO Get rid of this nesting, once var? is figured out
         if (page) {
@@ -49,6 +51,6 @@ export default class ButtonsAPI {
             }
         }
 
-        return "";
-    }
+        return {}
+    };
 }

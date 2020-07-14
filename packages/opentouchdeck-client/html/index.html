@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
 	<meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'">
+	<script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
 	<script src='../lib/renderer.index.js'></script>
 	<link href='../css/index.css' rel='stylesheet'>
 	<link href='../../../node_modules/@fortawesome/fontawesome-free/css/all.css' rel='stylesheet'>
@@ -10,9 +11,11 @@
 </head>
 
 <body>
+	<input type="text" class="variable" value="default" />
 	<div class="deck-page">
+		<!--
 		<div class="deck-button" onclick="location.reload()"><span class="fas fa-redo"></span></div>
-		<div class="deck-button"><span class="fab fa-twitch"></span></div>
+		<div class="deck-button" onclick="sendButtonEvent()"><span class="fab fa-twitch"></span></div>
 		<div class="deck-button"><span class="fab fa-facebook"></span></div>
 		<div class="deck-button"><span class="fas fa-ad"></span></div>
 		<div class="deck-button"><span class="fa fa-user"></span></div>
@@ -23,6 +26,7 @@
 		<div class="deck-button"><span class="fas fa-angry"></span></div>
 		<div class="deck-button"><span class="fas fa-smile-wink"></span></div>
 		<div class="deck-button"><span class="fas fa-arrow-right"></span></div>
+		-->
 	</div>
 </body>
 

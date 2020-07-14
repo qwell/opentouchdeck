@@ -55,19 +55,19 @@ export default class RESTService {
         });
 
         app.post('/page/:page/button/:button/event', async (req: any, res) => {
-            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button), req.body))
+            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button), req.body));
         });
 
         app.get('/variables', async (req: any, res) => {
             res.send(this.apiotd.variables.getVariables());
         });
- 
+
         app.get('/variable/:name', async (req: any, res) => {
-            res.send(this.apiotd.variables.getVariable(req.params.name));
+            res.send({ "value": this.apiotd.variables.getVariable(req.params.name) });
         });
- 
+
         app.post('/variable/:name', async (req: any, res) => {
-            res.send(this.apiotd.variables.setVariable(req.params.name, req.body));
+            res.send(this.apiotd.variables.setVariable(req.params.name, req.body.value !== undefined ? req.body.value : null));
         });
     }
 }

@@ -11,8 +11,11 @@ export default class ConfigData {
         return ConfigData.pages.find(page => page.title === pageTitle);
     }
 
-    static getPages(): Page[] {
-        return this.pages;
+    static getPages(): string[] {
+        var pageList: string[] = [];
+        this.pages.forEach(page => { pageList.push(page.title) });
+
+        return pageList;
     }
 
     static clear() {

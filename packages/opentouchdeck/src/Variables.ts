@@ -10,9 +10,11 @@ export default class Variables {
         if (found !== undefined) {
             return found.data;
         }
+        
+        return null;
     }
 
-    static setVariable(variableName: string, variableData: any) {
+    static setVariable(variableName: string, variableData: any): boolean {
         var found: Variable | undefined = this.storage.find(item => item.name === variableName)
         if (found !== undefined) {
             found.data = variableData;
@@ -23,6 +25,8 @@ export default class Variables {
             }
             this.storage.push(found);
         }
+
+        return true;
     }
 
     static deleteVariable(variableName: string) {
