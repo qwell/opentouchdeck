@@ -1,8 +1,6 @@
 import Button from '../Buttons/Button';
 import ConfigData from '../Configs/ConfigData';
 import Page from '../Pages/Page';
-import Position from '../Pages/Position';
-import Variables from '../Variables';
 import { BaseActionData } from '..';
 
 export default class ButtonsAPI {
@@ -11,7 +9,7 @@ export default class ButtonsAPI {
         const page: Page | undefined = ConfigData.getPage(pageName);
         // TODO Get rid of this nesting, once var? is figured out
         if (page !== undefined) {
-            page.positions.forEach(position => buttonList.push(position.index));
+            page.buttons.forEach(button => buttonList.push(button.position));
         }
         return buttonList;
     }
@@ -21,10 +19,9 @@ export default class ButtonsAPI {
         const page: Page | undefined = ConfigData.getPage(pageName);
         // TODO Get rid of this nesting, once var? is figured out
         if (page) {
-            const position: Position | undefined = page.positions.find(position => position.index === buttonPosition);
-            if (position) {
-                console.log(position);
-                const button: Button | undefined = position.button;
+            const button: Button | undefined = page.buttons.find(item => item.position === buttonPosition);
+            console.log(button);
+            if (button) {
                 return button;
             }
         }
@@ -35,18 +32,14 @@ export default class ButtonsAPI {
         const page: Page | undefined = ConfigData.getPage(pageName);
         // TODO Get rid of this nesting, once var? is figured out
         if (page) {
-            const position: Position | undefined = page.positions.find(position => position.index === buttonPosition);
-            if (position) {
-                console.log(position);
-                const button: Button | undefined = position.button;
-                if (button) {
-                    console.log(button);
-                    const actionData: BaseActionData | undefined = button.buttonData.actionData;
-                    if (actionData) {
-                        //console.log(actionData);
-                        //console.log(buttonParams);
-                        actionData.execute(button.buttonData.buttonInfo, buttonParams);
-                    }
+            const button: Button | undefined = page.buttons.find(item => item.position === buttonPosition);
+            if (button) {
+                console.log(button);
+                const actionData: BaseActionData | undefined = button.actionData;
+                if (actionData) {
+                    //console.log(actionData);
+                    //console.log(buttonParams);
+                    actionData.execute(button.buttonInfo, buttonParams);
                 }
             }
         }

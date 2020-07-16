@@ -9,6 +9,7 @@
             "name": "Counter"
           },
           "buttonInfo": {
+            "icon": "fa fa-user",
             "type": "increment",
             "value": 1,
             "variable": "fooCounter"
@@ -20,6 +21,7 @@
             "name": "Random"
           },
           "buttonInfo": {
+            "icon": "fab fa-facebook",
             "type": "list",
             "choices": [
               "rock",
@@ -40,6 +42,7 @@
             "name": "Random"
           },
           "buttonInfo": {
+            "icon": "fas fa-ad",
             "type": "range",
             "minimum": 3,
             "maximum": 5,

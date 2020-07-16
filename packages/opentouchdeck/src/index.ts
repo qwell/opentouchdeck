@@ -15,11 +15,9 @@ export {
 };
 
 import Button from './Buttons/Button';
-import ButtonData from './Buttons/ButtonData';
 import Page from './Pages/Page';
-import Position from './Pages/Position';
 
-export { Button, ButtonData, Page, Position };
+export { Button, Page };
 
 import Config from './Configs/Config';
 import ConfigData from './Configs/ConfigData';

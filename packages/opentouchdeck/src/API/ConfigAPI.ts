@@ -17,5 +17,6 @@ export default class ConfigAPI {
     reloadConfig(filepath: string) {
         ConfigData.clear();
         this.loadConfig(filepath);
+        console.log("Reloaded config.");
     }
 }

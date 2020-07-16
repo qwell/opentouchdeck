@@ -66,13 +66,14 @@ window.ipcapi.onMessage('getButtons', (event: string, message: any) => {
 
 window.ipcapi.onMessage('getButton', (event: string, message: any) => {
 	console.log(message);
-	console.log(buttonMap);
+	//console.log(buttonMap);
 	var map = buttonMap.find(item => message.page === item.page);
 	if (map !== undefined) {
 		console.log('have map');
 		console.log(map);
 		map.buttons[message.button]["data"] = message.data;
-		$('.deck-page').append('<div class="deck-button" onclick="' + clickButton(message.page, message.button) + '"><span class="fa fa-user"></span></div>')
+		var onclick = "clickButton('" + message.page + "', '" + message.button + "')";
+		$('.deck-page').append('<div class="deck-button" onclick="' + onclick + '"><span class="' + message.data.buttonInfo.icon + '"></span></div>');
 	}
 });
 
@@ -98,7 +99,7 @@ window.ipcapi.onMessage('getVariable', (event: string, message: any) => {
 });
 
 function sendButtonEvent(page: string, button: any) {
-	var map = buttonMap.find(item => page === item);
+	var map = buttonMap.find(item => page === item.page);
 	if (map !== undefined) {
 		window.ipcapi.send('sendButtonEvent', {
 			"page": page,

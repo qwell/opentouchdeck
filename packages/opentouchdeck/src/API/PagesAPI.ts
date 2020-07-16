@@ -1,8 +1,5 @@
-import Button from '../Buttons/Button';
 import Page from '../Pages/Page';
-import Position from '../Pages/Position';
 import ConfigData from '../Configs/ConfigData';
-import { BaseActionData } from '..';
 
 export default class PagesAPI {
     getPages(): string[] {

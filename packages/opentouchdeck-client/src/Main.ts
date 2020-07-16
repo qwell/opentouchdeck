@@ -63,7 +63,7 @@ export default class Main {
 		});
 
 		ipcMain.on('getButton', (event, message) => {
-			superagent.get(BASE_URL + '/pages/' + message.page + '/buttons/' + message.button).end((err, res) => {
+			superagent.get(BASE_URL + '/page/' + message.page + '/button/' + message.button).end((err, res) => {
 				event.reply('getButton', {
 					"page": message.page,
 					"button": message.button,
