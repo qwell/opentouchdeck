@@ -1,4 +1,4 @@
-import { BaseActionData } from '..';
+import BaseActionData from './BaseActionData';
 import Variables, { Variable } from '../Variables';
 
 export default class ActionDataRandom extends BaseActionData {

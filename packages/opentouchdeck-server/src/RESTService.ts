@@ -1,4 +1,4 @@
-import { API } from '@opentouchdeck/opentouchdeck';
+import API from './API/API';
 
 import * as express from 'express';
 import * as path from 'path';

@@ -48,6 +48,17 @@
             "maximum": 5,
             "variable": "fooRandom"
           }
+        },
+        {
+          "position": 1,
+          "action": {
+            "name": "Twitch"
+          },
+          "buttonInfo": {
+            "icon": "fab fa-twitch",
+            "clientId": "",
+            "clientSecret": ""
+          }
         }
       ]
     }

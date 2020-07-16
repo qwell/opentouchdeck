@@ -1,7 +1,7 @@
 import Button from '../Buttons/Button';
 import ConfigData from '../Configs/ConfigData';
 import Page from '../Pages/Page';
-import { BaseActionData } from '..';
+import BaseActionData from '../Actions/BaseActionData';
 
 export default class ButtonsAPI {
     getButtons(pageName: string): number[] {

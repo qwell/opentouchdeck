@@ -4,15 +4,13 @@
 		{
 			"type": "npm",
 			"script": "build",
-			"problemMatcher": [
-				"$tsc"
-			],
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
+			"problemMatcher": [],
 			"label": "npm: build",
-			"detail": "lerna run build"
+			"detail": "tsc"
 		}
 	]
 }

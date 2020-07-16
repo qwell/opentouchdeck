@@ -25,5 +25,8 @@
     "build": "tsc",
     "clean": "rimraf lib/",
     "client": "electron lib/"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
   }
 }

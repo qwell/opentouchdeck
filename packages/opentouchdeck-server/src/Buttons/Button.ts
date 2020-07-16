@@ -1,4 +1,6 @@
-import { ActionList, BaseAction, BaseActionData } from '..';
+import ActionList from '../Actions/ActionList';
+import BaseAction from '../Actions/BaseAction';
+import BaseActionData from '../Actions/BaseActionData';
 
 export default class Button {
 	position: number;

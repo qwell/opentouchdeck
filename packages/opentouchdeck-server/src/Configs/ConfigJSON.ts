@@ -1,5 +1,5 @@
 import Config from './Config';
-import { ConfigData } from '..';
+import ConfigData from './ConfigData';
 
 export default class ConfigJSON extends Config {
 	constructor(data: any) {

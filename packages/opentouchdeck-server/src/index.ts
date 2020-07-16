@@ -1,10 +1,14 @@
-import {
-    ActionList,
-    BaseAction,
-    ActionCounter, ActionExecute, ActionRandom, ActionURL,
-    ConfigData, ConfigJSON,
-    API
-} from '@opentouchdeck/opentouchdeck';
+import ActionCounter from './Actions/ActionCounter';
+import ActionExecute from './Actions/ActionExecute';
+import ActionList from './Actions/ActionList';
+import ActionRandom from './Actions/ActionRandom';
+import ActionTwitch from './Actions/ActionTwitch';
+import ActionURL from './Actions/ActionURL';
+import BaseAction from './Actions/BaseAction';
+import ConfigData from './Configs/ConfigData';
+import ConfigJSON from './Configs/ConfigJSON';
+import API from './API/API';
+
 import RESTService from './RESTService';
 
 import * as path from 'path';
@@ -18,6 +22,7 @@ const actions: typeof BaseAction[] = [
     ActionCounter,
     ActionExecute,
     ActionRandom,
+    ActionTwitch,
     ActionURL,
 ];
 

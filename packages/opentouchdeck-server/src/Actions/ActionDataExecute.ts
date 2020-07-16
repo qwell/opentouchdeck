@@ -1,4 +1,4 @@
-import { BaseActionData } from '..';
+import BaseActionData from './BaseActionData';
 
 export default class ActionDataExecute extends BaseActionData {
     path: string = "";

@@ -1,4 +1,6 @@
-import { ConfigData, Page, Config } from '..';
+import Config from '../Configs/Config';
+import ConfigData from '../Configs/ConfigData';
+import Page from '../Pages/Page';
 
 import * as fs from 'fs';
 
