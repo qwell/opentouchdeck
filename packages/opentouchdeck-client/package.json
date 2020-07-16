@@ -19,14 +19,7 @@
     "electron": "^8.3.0",
     "jquery": "^3.5.1",
     "path": "^0.12.7",
-    "superagent": "^5.3.1",
-    "typed-rest-client": "^1.7.3"
-  },
-  "devDependencies": {
-    "@opentouchdeck/opentouchdeck": "^0.0.1"
-  },
-  "peerDependencies": {
-    "@opentouchdeck/opentouchdeck": "^0.0.1"
+    "superagent": "^5.3.1"
   },
   "scripts": {
     "build": "tsc",
