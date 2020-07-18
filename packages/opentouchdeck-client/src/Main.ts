@@ -2,13 +2,14 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as superagent from 'superagent';
 import * as path from 'path';
 
-const BASE_URL = "http://192.168.68.42:2501";
+//const BASE_URL = "http://192.168.68.42:2501";
+const BASE_URL = "http://127.0.0.1:2501";
 
 export default class Main {
 	static mainWindow: BrowserWindow | null = null;
 
 	static start() {
-		app.on("ready", Main.onReady);
+		app.whenReady().then(this.onReady);
 	}
 
 	static onReady() {

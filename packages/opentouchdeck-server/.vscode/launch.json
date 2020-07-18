@@ -12,7 +12,6 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\lib",
-            "preLaunchTask": "npm: build",
             "outFiles": [
                 "${workspaceFolder}/lib/**/*.js"
             ]
