@@ -4,7 +4,7 @@ export default class VariablesAPI {
     getVariables(): string[] {
         return Variables.getVariables();
     }
-    getVariable(name: string): Variable {
+    getVariable(name: string): any {
         return Variables.getVariable(name);
     }
     setVariable(name: string, data: any) {

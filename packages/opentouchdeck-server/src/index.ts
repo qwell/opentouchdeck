@@ -10,6 +10,7 @@ import ConfigJSON from './Configs/ConfigJSON';
 import API from './API/API';
 
 import RESTService from './RESTService';
+import WSService from './WSService';
 
 import * as path from 'path';
 
@@ -47,11 +48,18 @@ actionData.forEach(function (data: any = {}) {
 */
 
 var apiotd = new API();
+
+const mainConfig: string = path.join(__dirname, '../testconfig.json');
+apiotd.variables.setVariable("MAINCONFIG", mainConfig);
+
 // TODO Store config filename in variable storage
-apiotd.config.loadConfig(path.join(__dirname, '../testconfig.json'));
+apiotd.config.loadConfig(mainConfig);
 
 var conf = new ConfigJSON(ConfigData);
 conf.show();
 
-let rService = new RESTService(DEFAULT_PORT, apiotd);
-rService.start();
+let wsServer = new WSService(DEFAULT_PORT, apiotd);
+wsServer.start();
+
+//let rService = new RESTService(DEFAULT_PORT, apiotd);
+//rService.start();
