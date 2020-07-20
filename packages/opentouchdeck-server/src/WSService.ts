@@ -12,8 +12,11 @@ export default class WSService {
 
     start() {
         let wss = new WebSocket.Server({ port: this.port });
-        wss.on('connection', ws => {
-            ws.on('message', message => {
+        wss.on('connection', (ws: WebSocket) => {
+            ws.on('message', (message: WebSocket.Data) => {
+                if (message.toString().length === 0) {
+                    return;
+                }
                 const wsm: WSMessage | null = WSMessage.fromJSON(message);
                 if (!wsm) {
                     return;
@@ -42,13 +45,23 @@ export default class WSService {
                         responseData = this.apiotd.pages.getPage(wsm.data.page);
                         break;
                     case "getPageButtons":
-                        responseData = this.apiotd.buttons.getButtons(wsm.data.page);
+                        responseData = {
+                            page: wsm.data.page,
+                            buttons: this.apiotd.buttons.getButtons(wsm.data.page)
+                        };
                         break;
                     case "getPageButton":
-                        responseData = this.apiotd.buttons.getButton(wsm.data.page, Number(wsm.data.button));
+                        responseData = {
+                            page: wsm.data.page,
+                            button: this.apiotd.buttons.getButton(wsm.data.page, Number(wsm.data.button))
+                        };
                         break;
                     case "sendPageButtonEvent":
-                        responseData = this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button), wsm.data.event);
+                        responseData = {
+                            page: wsm.data.page,
+                            button: wsm.data.button,
+                            output: this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button), wsm.data.params)
+                        }
                         break;
                     case "getVariables":
                         responseData = this.apiotd.variables.getVariables();

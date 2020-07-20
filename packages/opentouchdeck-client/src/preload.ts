@@ -7,8 +7,6 @@ declare global {
 }
 
 process.once('loaded', () => {
-	let listener;
-
 	contextBridge.exposeInMainWorld('ipcapi', {
 		send: (event: string, message: any[]) => {
 			ipcRenderer.send(event, message);

@@ -1,36 +1,90 @@
-window.onload = () => {
-	/*
-	window.ipcapi.send('setVariable', {
-		variableName: 'bob',
-		data: 'My fun variable value'
-	}, "*");
-
-	window.ipcapi.onMessage('setVariable', (event: string, message: any) => {
-		if (message) {
-			window.ipcapi.send('getVariable', {
-				variableName: 'bob'
-			}, "*");
-		}
-	});
-
-	window.ipcapi.onMessage('getVariable', (event: string, message: any) => {
-		console.log(event);
-		console.log(message);
-
-		console.log($('.variable'));
-		$('.variable').val(message);
-	});
-	*/
-
+$(document).ready(() => {
 	refreshPages();
-};
+});
+
+const buttonMap: any[] = [];
+
+function otdwsSend(type: string, data?: any) {
+	window.ipcapi.send('otdws', new WSMessage(type, data).toString())
+}
+
+window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
+	const wsm: WSMessage | null = WSMessage.fromJSON(msg);
+	if (!wsm) {
+		return;
+	}
+
+	var responseData: any;
+
+	// TODO Create a static class to hold all of the registered message types and send to the appropriate callback(s).
+	switch (wsm.type) {
+		case "response_getPages":
+			console.log(wsm.data);
+			wsm.data.forEach((page: string) => {
+				buttonMap.push({ "page": page, "buttons": [] });
+
+				refreshButtons(page);
+			});
+			break;
+		case "response_getPageButtons":
+			wsm.data.buttons.forEach((button: number) => {
+				var map = buttonMap.find(page => wsm.data.page === page.page);
+				if (map !== undefined) {
+					map.buttons.push({ "button": button });
+
+					otdwsSend('getPageButton', {
+						"page": wsm.data.page,
+						"button": button
+					});
+				}
+			});
+			break;
+		case "response_getPageButton":
+			var map = buttonMap.find(item => wsm.data.page === item.page);
+			if (map !== undefined) {
+				map.buttons[wsm.data.button.position] = { info: wsm.data.button.buttonInfo, callback: "" };
+				var onclick = "clickButton('" + wsm.data.page + "', '" + wsm.data.button.position + "')";
+				$('.deck-page').append('<div class="deck-button" onclick="' + onclick + '"><span class="' + wsm.data.button.buttonInfo.icon + '"></span></div>');
+			}
+			break;
+		case "response_sendButtonEvent":
+			console.log(wsm.data);
+			buttonMap.forEach((page: any) => {
+				if (page.page === wsm.data.page) {
+					page.buttons.forEach((button: any) => {
+						if (button.button === wsm.data.button) {
+							switch (button.callback) {
+								case "0-0":
+									otdwsSend('getVariable', {
+										variableName: 'fooCounter'
+									});
+							}
+						}
+					})
+				}
+			});
+			break;
+		case "response_getVariable":
+			$('.variable').val(wsm.data);
+			break;
+		case "response_setVariable":
+			otdwsSend('getVariable', {
+				variableName: 'bob'
+			});
+			break;
+	}
+
+	if (!wsm.type.startsWith("response_")) {
+		otdwsSend("response_" + wsm.type, responseData);
+	}
+});
 
 function refreshPages() {
-	window.ipcapi.send('getPages', {}, "*");
+	otdwsSend('getPages');
 }
 
 function refreshButtons(page: string) {
-	window.ipcapi.send('getButtons', {
+	otdwsSend('getPageButtons', {
 		"page": page
 	});
 }
@@ -40,71 +94,53 @@ function clickButton(page: string, button: number) {
 	sendButtonEvent(page, button);
 }
 
-const buttonMap: any[] = [];
-
-window.ipcapi.onMessage('getPages', (event: string, message: any) => {
-	message.forEach((page: string) => {
-		buttonMap.push({ "page": page, "buttons": [] });
-
-		refreshButtons(page);
-	});
-});
-
-window.ipcapi.onMessage('getButtons', (event: string, message: any) => {
-	message.buttons.forEach((button: number) => {
-		var map = buttonMap.find(page => message.page === page.page);
-		if (map !== undefined) {
-			map.buttons.push({ "button": button });
-
-			window.ipcapi.send('getButton', {
-				"page": message.page,
-				"button": button
-			});
-		}
-	});
-});
-
-window.ipcapi.onMessage('getButton', (event: string, message: any) => {
-	console.log(message);
-	//console.log(buttonMap);
-	var map = buttonMap.find(item => message.page === item.page);
-	if (map !== undefined) {
-		console.log('have map');
-		console.log(map);
-		map.buttons[message.button]["data"] = message.data;
-		var onclick = "clickButton('" + message.page + "', '" + message.button + "')";
-		$('.deck-page').append('<div class="deck-button" onclick="' + onclick + '"><span class="' + message.data.buttonInfo.icon + '"></span></div>');
-	}
-});
-
-window.ipcapi.onMessage('sendButtonEvent', (event: string, message: any) => {
-	buttonMap.forEach((page: any) => {
-		if (page.page === message.input.page) {
-			page.buttons.forEach((button: any) => {
-				if (button.button === message.input.button) {
-					switch (button.callback) {
-						case "0-0":
-							window.ipcapi.send('getVariable', {
-								variableName: 'fooCounter'
-							}, "*");
-					}
-				}
-			})
-		}
-	});
-});
-
-window.ipcapi.onMessage('getVariable', (event: string, message: any) => {
-	$('.variable').val(message);
-});
-
 function sendButtonEvent(page: string, button: any) {
 	var map = buttonMap.find(item => page === item.page);
 	if (map !== undefined) {
-		window.ipcapi.send('sendButtonEvent', {
+		otdwsSend('sendButtonEvent', {
 			"page": page,
 			"button": button,
-			"data": map.buttons[button]["data"]
-		}, "*");
+			"params": map.buttons[button]["info"]
+		});
 	}
 }
+
+class WSMessage {
+	/*
+	 * This class is copied straight from opentouchdeck-server.
+	 * It should be updated as changes are made.
+	 * 
+	 * TODO That is not ideal.
+	 */
+	type: string;
+	data: any;
+
+	constructor(type: string, data: any) {
+		this.type = type;
+		this.data = data;
+	}
+
+	static fromJSON(message: any): WSMessage | null {
+		if (message === null) {
+			return null;
+		}
+
+		const json = JSON.parse(message);
+		if (json.type === undefined) {
+			return null;
+		}
+
+		const data = (json.data === undefined || json.data === null) ? {} : json.data;
+
+		return new this(json.type, data);
+	}
+
+	toString() {
+		return JSON.stringify(
+			{
+				type: this.type,
+				data: this.data
+			}
+		);
+	}
+};

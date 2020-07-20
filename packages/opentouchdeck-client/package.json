@@ -15,10 +15,10 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@types/jquery": "^3.5.0",
     "@types/node": "^12.12.39",
-    "@types/superagent": "^4.1.8",
+    "@types/ws": "^7.2.6",
     "jquery": "^3.5.1",
     "path": "^0.12.7",
-    "superagent": "^5.3.1"
+    "ws": "^7.3.1"
   },
   "scripts": {
     "build": "tsc",
