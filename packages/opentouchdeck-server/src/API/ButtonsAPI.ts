@@ -28,6 +28,7 @@ export default class ButtonsAPI {
                 return {
                     position: button.position,
                     icon: button.icon,
+                    actionDataUUID: button.actionDataUUID,
                     actionData: actionData
                 }
             }

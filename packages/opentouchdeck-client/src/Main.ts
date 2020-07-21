@@ -8,9 +8,15 @@ export default class Main {
 	static mainWindow: BrowserWindow | null = null;
 	static ws: WebSocket;
 
-	static start() {
-		app.whenReady().then(this.onReady);
+	private static startWS() {
 		Main.ws = new WebSocket(WS_URL);
+		Main.ws.on('open', (ws: WebSocket) => {
+			Main.onReady();
+		})
+	}
+
+	static start() {
+		app.whenReady().then(this.startWS);
 	}
 
 	static onReady() {

@@ -58,8 +58,8 @@ apiotd.config.loadConfig(mainConfig);
 var conf = new ConfigJSON(ConfigData);
 conf.show();
 
-let wsServer = new WSService(DEFAULT_PORT, apiotd);
-wsServer.start();
+WSService.initialize(DEFAULT_PORT, apiotd);
+WSService.start();
 
 //let rService = new RESTService(DEFAULT_PORT, apiotd);
 //rService.start();

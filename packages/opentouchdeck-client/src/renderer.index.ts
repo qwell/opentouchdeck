@@ -42,8 +42,21 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			var map = buttonMap.find(item => wsm.data.page === item.page);
 			if (map !== undefined) {
 				map.buttons[wsm.data.button.position] = { info: wsm.data.button.actionData, callback: "" };
+
 				var onclick = "sendPageButtonEvent('" + wsm.data.page + "', '" + wsm.data.button.position + "')";
-				$('.deck-page').append('<div class="deck-button" onclick="' + onclick + '"><span class="' + wsm.data.button.icon + '"></span></div>');
+				var oldDiv = $('.deck-page > #' + wsm.data.button.actionDataUUID);
+				var newDiv = '<div id="' + wsm.data.button.actionDataUUID + '" class="deck-button" onclick="' + onclick + '"><span class="' + wsm.data.button.icon + '"></span></div>'
+
+				//console.log("old: " + (oldDiv.length > 0) ? oldDiv[0].innerHTML : "nope");
+				console.log("new: " + newDiv);
+				if (oldDiv.length === 0) {
+					console.log("No length");
+					$('.deck-page').append(newDiv);
+				} else {
+					console.log("Appended");
+					oldDiv.replaceWith(newDiv);
+				}
+
 			}
 			break;
 		case "response_sendPageButtonEvent":

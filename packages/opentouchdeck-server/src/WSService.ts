@@ -1,18 +1,21 @@
 import API from './API/API';
 
 import * as WebSocket from 'ws';
-export default class WSService {
-    private port: number;
-    private apiotd: API;
 
-    constructor(port: number, apiotd: API = new API()) {
+export default class WSService {
+    private static port: number;
+    static apiotd: API;
+
+    static wss: WebSocket.Server;
+
+    static initialize(port: number, apiotd: API = new API()) {
         this.port = port;
         this.apiotd = apiotd;
     }
 
-    start() {
-        let wss = new WebSocket.Server({ port: this.port });
-        wss.on('connection', (ws: WebSocket) => {
+    static start() {
+        this.wss = new WebSocket.Server({ port: this.port });
+        this.wss.on('connection', (ws: WebSocket) => {
             ws.on('message', (message: WebSocket.Data) => {
                 if (message.toString().length === 0) {
                     return;

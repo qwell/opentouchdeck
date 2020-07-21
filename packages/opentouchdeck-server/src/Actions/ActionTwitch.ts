@@ -5,6 +5,10 @@ import ActionDataTwitch from './ActionDataTwitch';
 import TwitchClient from 'twitch';
 import ChatClient, { LogLevel } from 'twitch-chat-client';
 
+import WSService, { WSMessage } from '../WSService';
+
+import * as WebSocket from 'ws';
+
 import * as fs from 'fs';
 
 export default class ActionTwitch extends BaseAction {
@@ -78,12 +82,37 @@ export default class ActionTwitch extends BaseAction {
             await twitchChat.connect();
 
             twitchChat.onPrivmsg(async (channel, user, message) => {
-                if (channel === '#northantara' && user === 'northantara' && message === 'abc') {
-                    twitchChat.say(channel, 'BOTTEST: good');
+                /*
+                TODO Emit some sort of message to our ???message queue???.
+                TODO ...build a message queue.
+ 
+                var x = {
+                    name: "Twitch",
+                    type: "privmsg",
+                    eventData: {
+                        channel: channel,
+                        user: user,
+                        message: message
+                    }
                 }
+                myfakemessagequeue.emit(x);
+                */
 
-                //var apiotd = new API();
-                //apiotd.config.reloadConfig(path.join(__dirname, '../../testconfig.json'));
+                if (channel === '#northantara' && user === 'northantara' && message.startsWith('fa-')) {
+                    WSService.wss.clients.forEach(client => {
+                        if (client.readyState === WebSocket.OPEN) {
+                            var button = WSService.apiotd.buttons.getButton("Page Two", 1);
+                            if (button) {
+                                button.icon = 'fab ' + message;
+
+                                client.send(new WSMessage('pageButtonUpdate', {
+                                    page: "Page Two",
+                                    button: button
+                                }).toString());
+                            }
+                        }
+                    });
+                }
             });
         }
     }
