@@ -2,6 +2,7 @@ import Button from '../Buttons/Button';
 import ConfigData from '../Configs/ConfigData';
 import Page from '../Pages/Page';
 import BaseActionData from '../Actions/BaseActionData';
+import ActionList from '../Actions/ActionList';
 
 export default class ButtonsAPI {
     getButtons(pageName: string): number[] {
@@ -19,9 +20,18 @@ export default class ButtonsAPI {
         const page: Page | undefined = ConfigData.getPage(pageName);
         if (page) {
             const button: Button | undefined = page.buttons.find(item => item.position === buttonPosition);
-            return button !== undefined ? button : null;
+            if (button != undefined) {
+                var actionData: BaseActionData | undefined
+                if (button.actionDataUUID) {
+                    actionData = ActionList.getActionData(button.actionDataUUID);
+                }
+                return {
+                    position: button.position,
+                    buttonInfo: actionData?.buttonInfo
+                }
+            }
+            return null;
         }
-        return null;
     }
 
     buttonEvent(pageName: string, buttonPosition: number, buttonParams?: any): any {
@@ -30,11 +40,15 @@ export default class ButtonsAPI {
         if (page) {
             const button: Button | undefined = page.buttons.find(item => item.position === buttonPosition);
             if (button) {
-                console.log(button);
-                const actionData: BaseActionData | undefined = button.actionData;
-                if (actionData) {
-                    actionData.execute(button.buttonInfo, buttonParams);
+                var actionData: BaseActionData | undefined
+                if (button.actionDataUUID) {
+                    actionData = ActionList.getActionData(button.actionDataUUID);
                 }
+                if (actionData) {
+                    actionData.execute(buttonParams);
+                }
+
+                console.log(button);
             }
         }
 

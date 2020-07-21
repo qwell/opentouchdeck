@@ -2,12 +2,12 @@ import BaseActionData from './BaseActionData';
 import Variables, { Variable } from '../Variables';
 
 export default class ActionDataCounter extends BaseActionData {
-    constructor(data: any = {}) {
-        super(data);
+    constructor(buttonInfo: any = {}) {
+        super(buttonInfo);
     }
 
-    protected executePre(data: any = {}) {
-        var counter: number = Variables.getVariable(data.variable);
+    protected executePre() {
+        var counter: number = Variables.getVariable(this.buttonInfo.variable);
         if (counter === undefined) {
             counter = 0;
         }
@@ -15,25 +15,25 @@ export default class ActionDataCounter extends BaseActionData {
         console.log("Pre: " + counter);
     }
 
-    protected executePost(data: any = {}) {
-        var counter: number = Variables.getVariable(data.variable);
+    protected executePost() {
+        var counter: number = Variables.getVariable(this.buttonInfo.variable);
         if (counter === undefined) {
             counter = 0;
         }
 
-        switch (data.type) {
+        switch (this.buttonInfo.type) {
             case "increment":
-                counter += data.value;
+                counter += this.buttonInfo.value;
                 break;
             case "decrement":
-                counter -= data.value;
+                counter -= this.buttonInfo.value;
                 break;
             case "set":
-                counter = data.value;
+                counter = this.buttonInfo.value;
                 break;
 
         }
-        Variables.setVariable(data.variable, counter)
+        Variables.setVariable(this.buttonInfo.variable, counter)
 
         console.log("Post: " + counter);
     }

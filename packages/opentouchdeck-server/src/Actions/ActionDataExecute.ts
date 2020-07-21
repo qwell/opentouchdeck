@@ -1,21 +1,20 @@
 import BaseActionData from './BaseActionData';
 
 export default class ActionDataExecute extends BaseActionData {
+    /*
     path: string = "";
     args: string[] = [];
+    */
 
-    constructor(data: any = {}) {
-        super(data);
-
-        this.path = data.path;
-        this.args = data.args;
+    constructor(buttonInfo: any = {}) {
+        super(buttonInfo);
     }
 
     protected executePre() {
-        console.log("Pre: " + this.path + " " + this.args.join(' '));
+        console.log("Pre: " + this.buttonInfo.path + " " + this.buttonInfo.args.join(' '));
     }
 
     protected executePost() {
-        console.log("Post: " + this.path + " " + this.args.join(' '));
+        console.log("Post: " + this.buttonInfo.path + " " + this.buttonInfo.args.join(' '));
     }
 }

@@ -7,8 +7,8 @@ export default class BaseAction {
     constructor(data: any = {}) {
     }
 
-    createActionData(data: any = {}): BaseActionData {
-        return new BaseActionData();
+    createActionData(buttonInfo: any = {}): BaseActionData {
+        return new BaseActionData(buttonInfo);
     }
 }
 

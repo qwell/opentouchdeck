@@ -1,8 +1,11 @@
 $(document).ready(() => {
-	refreshPages();
+	window.ipcapi.send('otdws', new WSMessage("clientHello", {
+		message: "Hi, I'm an electron opentouchdeck client.",
+		version: "0.0.1"
+	}).toString())
 });
 
-const buttonMap: any[] = [];
+var buttonMap: any[] = [];
 
 function otdwsSend(type: string, data?: any) {
 	window.ipcapi.send('otdws', new WSMessage(type, data).toString())
@@ -18,36 +21,32 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 
 	// TODO Create a static class to hold all of the registered message types and send to the appropriate callback(s).
 	switch (wsm.type) {
-		case "response_getPages":
+		case "serverHello":
+			console.log("Hello server " + wsm.data.message + " version " + wsm.data.version);
+			break;
+		case "pagesUpdate":
 			console.log(wsm.data);
 			wsm.data.forEach((page: string) => {
 				buttonMap.push({ "page": page, "buttons": [] });
-
-				refreshButtons(page);
 			});
 			break;
-		case "response_getPageButtons":
+		case "pageButtonsUpdate":
 			wsm.data.buttons.forEach((button: number) => {
 				var map = buttonMap.find(page => wsm.data.page === page.page);
 				if (map !== undefined) {
 					map.buttons.push({ "button": button });
-
-					otdwsSend('getPageButton', {
-						"page": wsm.data.page,
-						"button": button
-					});
 				}
 			});
 			break;
-		case "response_getPageButton":
+		case "pageButtonUpdate":
 			var map = buttonMap.find(item => wsm.data.page === item.page);
 			if (map !== undefined) {
 				map.buttons[wsm.data.button.position] = { info: wsm.data.button.buttonInfo, callback: "" };
-				var onclick = "clickButton('" + wsm.data.page + "', '" + wsm.data.button.position + "')";
+				var onclick = "sendPageButtonEvent('" + wsm.data.page + "', '" + wsm.data.button.position + "')";
 				$('.deck-page').append('<div class="deck-button" onclick="' + onclick + '"><span class="' + wsm.data.button.buttonInfo.icon + '"></span></div>');
 			}
 			break;
-		case "response_sendButtonEvent":
+		case "response_sendPageButtonEvent":
 			console.log(wsm.data);
 			buttonMap.forEach((page: any) => {
 				if (page.page === wsm.data.page) {
@@ -79,25 +78,10 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 	}
 });
 
-function refreshPages() {
-	otdwsSend('getPages');
-}
-
-function refreshButtons(page: string) {
-	otdwsSend('getPageButtons', {
-		"page": page
-	});
-}
-
-function clickButton(page: string, button: number) {
-	console.log("Button " + button + " on page " + page + " has been clicked.");
-	sendButtonEvent(page, button);
-}
-
-function sendButtonEvent(page: string, button: any) {
+function sendPageButtonEvent(page: string, button: any) {
 	var map = buttonMap.find(item => page === item.page);
 	if (map !== undefined) {
-		otdwsSend('sendButtonEvent', {
+		otdwsSend('sendPageButtonEvent', {
 			"page": page,
 			"button": button,
 			"params": map.buttons[button]["info"]

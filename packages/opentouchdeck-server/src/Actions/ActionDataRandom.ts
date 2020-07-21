@@ -2,16 +2,16 @@ import BaseActionData from './BaseActionData';
 import Variables, { Variable } from '../Variables';
 
 export default class ActionDataRandom extends BaseActionData {
-    constructor(data: any = {}) {
-        super(data);
+    constructor(buttonInfo: any = {}) {
+        super(buttonInfo);
     }
 
     private generateRandomBetween(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    protected executePre(data: any = {}) {
-        var previous: number = Variables.getVariable(data.variable);
+    protected executePre() {
+        var previous: number = Variables.getVariable(this.buttonInfo.variable);
         if (previous === undefined) {
             previous = 0;
         }
@@ -19,44 +19,44 @@ export default class ActionDataRandom extends BaseActionData {
         console.log("Pre: " + previous);
     }
 
-    protected executePost(data: any = {}) {
+    protected executePost() {
         var choice = null;
-        switch (data.type) {
+        switch (this.buttonInfo.type) {
             case "list":
                 // data.choices will be JSON arrays like
                 // ["heads", tails"]
                 // ["rock", "paper", "scissors"]
-                if (data.choices === undefined || data.choices.length === 0) {
+                if (this.buttonInfo.choices === undefined || this.buttonInfo.choices.length === 0) {
                     return null;
                 }
 
-                var random: number = this.generateRandomBetween(0, data.choices.length - 1);
-                choice = data.choices[random];
+                var random: number = this.generateRandomBetween(0, this.buttonInfo.choices.length - 1);
+                choice = this.buttonInfo.choices[random];
                 break;
             case "dice":
                 // data.count
                 // data.sides
                 var dice: number = 0;
-                if (data.count !== undefined && data.sides !== undefined) {
-                    for (var i: number = 0; i < data.count; i++) {
-                        dice += this.generateRandomBetween(1, data.sides);
+                if (this.buttonInfo.count !== undefined && this.buttonInfo.sides !== undefined) {
+                    for (var i: number = 0; i < this.buttonInfo.count; i++) {
+                        dice += this.generateRandomBetween(1, this.buttonInfo.sides);
                     }
                 }
                 choice = dice;
                 break;
             case "range":
-                // data.minimum | data.min
-                // data.maximum | data.max
-                if (data.minimum === undefined && data.min !== undefined) {
-                    data.minimum = data.min;
+                // minimum | min
+                // maximum | max
+                if (this.buttonInfo.minimum === undefined && this.buttonInfo.min !== undefined) {
+                    this.buttonInfo.minimum = this.buttonInfo.min;
                 }
-                if (data.maximum === undefined && data.max !== undefined) {
-                    data.maximum = data.max;
+                if (this.buttonInfo.maximum === undefined && this.buttonInfo.max !== undefined) {
+                    this.buttonInfo.maximum = this.buttonInfo.max;
                 }
-                choice = this.generateRandomBetween(data.minimum, data.maximum);
+                choice = this.generateRandomBetween(this.buttonInfo.minimum, this.buttonInfo.maximum);
                 break;
         }
-        Variables.setVariable(data.variable, choice);
+        Variables.setVariable(this.buttonInfo.variable, choice);
 
         console.log("Post: " + choice);
     }

@@ -1,21 +1,20 @@
 import BaseActionData from './BaseActionData';
 
 export default class ActionDataURL extends BaseActionData {
+    /*
     url: string = "";
     background: boolean = false;
+    */
 
-    constructor(data: any = {}) {
-        super(data);
-
-        this.url = data.url;
-        this.background = data.background;
+    constructor(buttonInfo: any = {}) {
+        super(buttonInfo);
     }
 
     protected executePre() {
-        console.log("Pre: " + this.url + (this.background ? " (Background)" : ""));
+        console.log("Pre: " + this.buttonInfo.url + (this.buttonInfo.background ? " (Background)" : ""));
     }
 
     protected executePost() {
-        console.log("Post: " + this.url + (this.background ? " (Background)" : ""));
+        console.log("Post: " + this.buttonInfo.url + (this.buttonInfo.background ? " (Background)" : ""));
     }
 }

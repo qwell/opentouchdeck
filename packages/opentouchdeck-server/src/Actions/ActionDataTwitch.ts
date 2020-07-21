@@ -1,13 +1,23 @@
+import API from '../API/API';
 import BaseActionData from './BaseActionData';
 
-import TwitchClient, { AuthProvider, RefreshableAuthProvider, StaticAuthProvider } from 'twitch';
-import ChatClient from 'twitch-chat-client';
+import TwitchClient from 'twitch';
+import ChatClient, { LogLevel } from 'twitch-chat-client';
+
+import * as fs from 'fs';
 
 export default class ActionDataTwitch extends BaseActionData {
-    constructor(data: any = {}) {
-        super(data);
+    private twitchClient: TwitchClient;
+    private twitchChat: ChatClient;
+
+    constructor(buttonInfo: any = {}) {
+        super(buttonInfo);
+
+        // TODO Figure out what needs to be done to make this async.
 
         //TODO Put all of this into a subclass (or something).
+        const scope = ["chat:read", "chat:edit"];
+        /*
         const scope = [
             "user:read:broadcast",
             "user:edit:broadcast",
@@ -19,47 +29,70 @@ export default class ActionDataTwitch extends BaseActionData {
             "chat:edit",
             "channel_commercial",
         ];
-        const DUMMY_clientId = "krlv0gb85zvxupzqqsxh5guczlazek";
-        const DUMMY_clientSecret = "dkin0ura8kwlhuwmw1ly9vdvz9detv";
-        const DUMMY_token = {
-            accessToken: "",
-            refreshToken: "",
-            expiryDate: null
-        };
+        */
 
-        function saveToken(newToken: any) {
-            console.log(newToken);
+        var tokenData;
+        var secretData;
+        if (!fs.existsSync('tokens')) {
+            fs.mkdirSync('tokens');
+        }
+        if (fs.existsSync('tokens/twitch.json')) {
+            tokenData = JSON.parse(fs.readFileSync('tokens/twitch.json', 'utf-8'));
+        } else {
+            tokenData = {};
+        }
+        if (fs.existsSync('tokens/twitch-secret.json')) {
+            secretData = JSON.parse(fs.readFileSync('tokens/twitch-secret.json', 'utf-8'));
+        } else {
+            secretData = {};
         }
 
-        const client: TwitchClient = TwitchClient.withCredentials(DUMMY_clientId, DUMMY_token.accessToken/*, scope,
+        this.twitchClient = TwitchClient.withCredentials(secretData.clientId, tokenData.accessToken, scope,
             {
-                clientSecret: DUMMY_clientSecret,
-                refreshToken: DUMMY_token.refreshToken,
-                onRefresh: accessToken => saveToken(accessToken),
-                expiry: DUMMY_token.expiryDate
-            },
-            {
-                preAuth: true,
-                initialScopes: scope
+                clientSecret: secretData.clientSecret,
+                refreshToken: tokenData.refreshToken,
+                expiry: new Date(tokenData.expiryTimestamp),
+                onRefresh: async ({ accessToken, refreshToken, expiryDate }) => {
+                    const newTokenData = {
+                        accessToken,
+                        refreshToken,
+                        expiryTimestamp: expiryDate === null ? null : expiryDate.getTime()
+                    };
+                    if (!fs.existsSync('tokens')) {
+                        fs.mkdirSync('tokens');
+                    }
+                    await fs.promises.writeFile('tokens/twitch.json', JSON.stringify(newTokenData, null, 4), 'utf-8');
+                }
             }
-        */);
+        );
 
-        /*await*/ const twitchChat = ChatClient.forTwitchClient(client, { "channels": ['northantara'] });
-        twitchChat.connect();
+        this.twitchChat = new ChatClient(this.twitchClient, { "channels": ['#northantara'] });
 
-        /*
-        twitchChat.onPrivmsg(async (currentChannel, user, message, msg) => {
-            var apiotd = new API();
-            apiotd.config.reloadConfig(path.join(__dirname, '../../testconfig.json'));
-        });
-        */
+        chatHandler(this, this.twitchChat);
+        async function chatHandler(actionData: ActionDataTwitch, twitchChat: ChatClient) {
+            await twitchChat.connect();
+
+            twitchChat.onPrivmsg(async (channel, user, message) => {
+                if (channel === '#northantara' && user === 'northantara' && message === 'abc') {
+                    twitchChat.say(channel, 'BOTTEST: good');
+                }
+
+                //var apiotd = new API();
+                //apiotd.config.reloadConfig(path.join(__dirname, '../../testconfig.json'));
+            });
+        }
     }
 
-    protected executePre(data: any = {}) {
+    protected executePre() {
         console.log("Pre");
+
+        if (!this.buttonInfo.channel.startsWith("#")) {
+            this.buttonInfo.channel = "#" + this.buttonInfo.channel;
+        }
+        this.twitchChat.say(this.buttonInfo.channel, this.buttonInfo.text);
     }
 
-    protected executePost(data: any = {}) {
+    protected executePost() {
         console.log("Post");
     }
 }

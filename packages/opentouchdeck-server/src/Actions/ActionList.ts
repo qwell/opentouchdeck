@@ -1,7 +1,9 @@
-import BaseAction from './BaseAction';
+import BaseAction, { BaseActionData } from './BaseAction';
+import { ActionDataCounter } from './ActionCounter';
 
 export default class ActionList {
     private static actions: BaseAction[] = [];
+    private static actionDatas: BaseActionData[] = [];
 
     static registerAction(action: BaseAction) {
         if (!this.actions.some(registeredAction => action.name === registeredAction.name)) {
@@ -13,11 +15,24 @@ export default class ActionList {
         this.actions = this.actions.filter(registeredAction => registeredAction.name === actionName);
     }
 
+    //buttonInfo is data that should be more directly tied to ActionData
+    static registerActionData(actionData: BaseActionData) {
+        this.actionDatas.push(actionData);
+    }
+
+    static unregisterActionData(uuid: string) {
+        this.actionDatas = this.actionDatas.filter(registeredActionData => registeredActionData.uuid === uuid);
+    }
+
     static getActions(): BaseAction[] {
         return ActionList.actions;
     }
 
     static getAction(actionName: string): BaseAction | undefined {
         return ActionList.actions.find(action => action.name === actionName);
+    }
+
+    static getActionData(uuid: string): BaseActionData | undefined {
+        return ActionList.actionDatas.find(actionData => actionData.uuid == uuid);
     }
 }

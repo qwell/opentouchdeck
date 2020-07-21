@@ -1,16 +1,19 @@
 export default class BaseActionData {
-    constructor(data: any = {}) {
+    uuid: string | null = null;
+    buttonInfo: any = {};
 
+    constructor(buttonInfo: any = {}) {
+        this.buttonInfo = buttonInfo;
     }
 
-    execute(data: any = {}, params: any = {}) {
-        this.executePre(data, params);
-        this.executePost(data, params);
+    execute(params: any = {}) {
+        this.executePre(params);
+        this.executePost(params);
     }
 
-    protected executePre(data: any = {}, params: any = {}) {
+    protected executePre(params: any = {}) {
     }
 
-    protected executePost(data: any = {}, params: any = {}) {
+    protected executePost(params: any = {}) {
     }
 }
