@@ -5,11 +5,11 @@
       "buttons": [
         {
           "position": 0,
+          "icon": "fa fa-user",
           "action": {
             "name": "Counter"
           },
           "buttonInfo": {
-            "icon": "fa fa-user",
             "type": "increment",
             "value": 1,
             "variable": "fooCounter"
@@ -20,11 +20,11 @@
         },
         {
           "position": 1,
+          "icon": "fab fa-facebook",
           "action": {
             "name": "Random"
           },
           "buttonInfo": {
-            "icon": "fab fa-facebook",
             "type": "list",
             "choices": [
               "rock",
@@ -41,11 +41,11 @@
       "buttons": [
         {
           "position": 0,
+          "icon": "fas fa-ad",
           "action": {
             "name": "Random"
           },
           "buttonInfo": {
-            "icon": "fas fa-ad",
             "type": "range",
             "minimum": 3,
             "maximum": 5,
@@ -54,11 +54,11 @@
         },
         {
           "position": 1,
+          "icon": "fab fa-twitch",
           "action": {
             "name": "Twitch"
           },
           "buttonInfo": {
-            "icon": "fab fa-twitch",
             "channel": "#northantara",
             "text": "BOTTEST: I am text from the config file."
           }

@@ -27,7 +27,8 @@ export default class ButtonsAPI {
                 }
                 return {
                     position: button.position,
-                    buttonInfo: actionData?.buttonInfo
+                    icon: button.icon,
+                    actionData: actionData
                 }
             }
             return null;

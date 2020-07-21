@@ -6,14 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default class Button {
 	position: number;
+	icon: string | undefined;
 	onState: any = undefined;
 	actionDataUUID: string | null = null;
-	/*
-	actionData: BaseActionData | undefined;
-	*/
 
 	private constructor(data: any = {}) {
 		this.position = data.position;
+		this.icon = data.icon;
 
 		const action: BaseAction | undefined = ActionList.getAction(data.action.name);
 		if (action) {
