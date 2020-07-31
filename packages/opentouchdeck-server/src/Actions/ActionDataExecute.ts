@@ -4,11 +4,11 @@ export default class ActionDataExecute extends BaseActionData {
     path: string = "";
     args: string[] = [];
 
-    constructor(buttonInfo: any = {}) {
-        super(buttonInfo);
+    constructor(params: any = {}) {
+        super(params);
 
-        this.path = buttonInfo.path;
-        this.args = buttonInfo.args;
+        this.path = params.path;
+        this.args = params.args;
     }
 
     protected executePre() {

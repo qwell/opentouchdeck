@@ -5,15 +5,16 @@ import ActionDataTwitch from './ActionDataTwitch';
 import TwitchClient from 'twitch';
 import ChatClient, { LogLevel } from 'twitch-chat-client';
 
-import WSService, { WSMessage } from '../WSService';
-
-import * as WebSocket from 'ws';
-
 import * as fs from 'fs';
+import EventHandlers from '../EventHandlers';
 
 export default class ActionTwitch extends BaseAction {
     name = "Twitch";
     description = "Do Twitch stuff.  I don't know";
+
+    emittable = [
+        "twitch/chat"
+    ];
 
     twitchClient: TwitchClient;
     twitchChat: ChatClient;
@@ -25,8 +26,7 @@ export default class ActionTwitch extends BaseAction {
         // TODO Figure out what needs to be done to make this async.
 
         //TODO Put all of this into a subclass (or something).
-        const scope = ["chat:read", "chat:edit"];
-        /*
+        //const scope = ["chat:read", "chat:edit"];
         const scope = [
             "user:read:broadcast",
             "user:edit:broadcast",
@@ -38,7 +38,6 @@ export default class ActionTwitch extends BaseAction {
             "chat:edit",
             "channel_commercial",
         ];
-        */
 
         var tokenData;
         var secretData;
@@ -82,43 +81,36 @@ export default class ActionTwitch extends BaseAction {
             await twitchChat.connect();
 
             twitchChat.onPrivmsg(async (channel, user, message) => {
-                /*
-                TODO Emit some sort of message to our ???message queue???.
-                TODO ...build a message queue.
- 
-                var x = {
-                    name: "Twitch",
-                    type: "privmsg",
-                    eventData: {
-                        channel: channel,
-                        user: user,
-                        message: message
-                    }
-                }
-                myfakemessagequeue.emit(x);
-                */
-
-                if (channel === '#northantara' && user === 'northantara' && message.startsWith('fa-')) {
-                    WSService.wss.clients.forEach(client => {
-                        if (client.readyState === WebSocket.OPEN) {
-                            var button = WSService.apiotd.buttons.getButton("Page Two", 1);
-                            if (button) {
-                                button.icon = 'fab ' + message;
-
-                                client.send(new WSMessage('pageButtonUpdate', {
-                                    page: "Page Two",
-                                    button: button
-                                }).toString());
-                            }
-                        }
-                    });
-                }
+                EventHandlers.triggers.emit("twitch/chat", {
+                    channel: channel,
+                    user: user,
+                    message: message
+                })
             });
         }
     }
 
     createActionData(data: any = {}): BaseActionData {
         return new ActionDataTwitch(data);
+    }
+
+    eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {
+        switch (event) {
+            case "twitch/chat":
+                if (configdata.channel !== undefined && configdata.channel !== eventdata.channel) {
+                    return false;
+                }
+                if (configdata.user !== undefined && configdata.user !== eventdata.user) {
+                    return false;
+                }
+                if (configdata.message !== undefined && configdata.message !== eventdata.message) {
+                    return false;
+                }
+
+                return true;
+        }
+
+        return false;
     }
 }
 export { ActionDataTwitch };

@@ -1,27 +1,22 @@
-import ActionList from '../Actions/ActionList';
-import BaseAction from '../Actions/BaseAction';
-import BaseActionData from '../Actions/BaseActionData';
-
-import { v4 as uuidv4 } from 'uuid';
-
 export default class Button {
 	position: number;
 	icon: string | undefined;
-	onState: any = undefined;
-	actionDataUUID: string | null = null;
+	faicon: string | undefined;
+	action: string;
+	params: any[];
+	triggers: ButtonTrigger[] = [];
 
 	private constructor(data: any = {}) {
 		this.position = data.position;
 		this.icon = data.icon;
+		this.faicon = data.faicon;
 
-		const action: BaseAction | undefined = ActionList.getAction(data.action.name);
-		if (action) {
-			var actionData: BaseActionData | undefined;
-			this.actionDataUUID = uuidv4();
-			actionData = action.createActionData(data.buttonInfo);
-			actionData.uuid = this.actionDataUUID;
-			ActionList.registerActionData(actionData);
-		}
+		this.action = data.action.name;
+		this.params = data.action.params;
+
+		data.triggers?.forEach((trigger: any) => {
+			this.triggers.push(trigger);
+		});
 	}
 
 	static fromJSON(data: any = {}): Button {
@@ -29,4 +24,10 @@ export default class Button {
 
 		return button;
 	}
+}
+
+export class ButtonTrigger {
+	event: string = "";
+	data: any;
+	UI: any;
 }

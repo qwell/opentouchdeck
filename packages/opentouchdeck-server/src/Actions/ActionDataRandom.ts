@@ -13,19 +13,19 @@ export default class ActionDataRandom extends BaseActionData {
     minimum: number;
     maximum: number;
 
-    constructor(buttonInfo: any = {}) {
-        super(buttonInfo);
+    constructor(params: any = {}) {
+        super(params);
 
-        this.type = buttonInfo.type;
-        this.variable = buttonInfo.variable;
+        this.type = params.type;
+        this.variable = params.variable;
 
-        this.choices = buttonInfo.choices;
+        this.choices = params.choices;
 
-        this.sides = buttonInfo.sides;
-        this.count = buttonInfo.count;
+        this.sides = params.sides;
+        this.count = params.count;
 
-        this.minimum = buttonInfo.minimum ? buttonInfo.minimum : (buttonInfo.min ? buttonInfo.min : 0);
-        this.maximum = buttonInfo.maximum ? buttonInfo.maximum : (buttonInfo.max ? buttonInfo.max : 0);
+        this.minimum = params.minimum ? params.minimum : (params.min ? params.min : 0);
+        this.maximum = params.maximum ? params.maximum : (params.max ? params.max : 0);
     }
 
     private generateRandomBetween(min: number, max: number) {

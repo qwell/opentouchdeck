@@ -45,18 +45,25 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 
 				var onclick = "sendPageButtonEvent('" + wsm.data.page + "', '" + wsm.data.button.position + "')";
 				var oldDiv = $('.deck-page > #' + wsm.data.button.actionDataUUID);
-				var newDiv = '<div id="' + wsm.data.button.actionDataUUID + '" class="deck-button" onclick="' + onclick + '"><span class="' + wsm.data.button.icon + '"></span></div>'
+				var newDiv = $('<div id="' + wsm.data.button.actionDataUUID + '" data-page="' + wsm.data.page + '" data-button="' + wsm.data.button.position + '" class="deck-button" onclick="' + onclick + '"></div>');
+				if (wsm.data.button.faicon !== undefined) {
+					var faicon = $('<span class="faicon ' + wsm.data.button.faicon + '"></span>');
+					newDiv.append(faicon);
+				}
 
-				//console.log("old: " + (oldDiv.length > 0) ? oldDiv[0].innerHTML : "nope");
-				console.log("new: " + newDiv);
 				if (oldDiv.length === 0) {
-					console.log("No length");
 					$('.deck-page').append(newDiv);
 				} else {
-					console.log("Appended");
 					oldDiv.replaceWith(newDiv);
 				}
 
+			}
+			break;
+		case "pageButtonIconUpdate":
+			var button = $('.deck-page [data-page="' + wsm.data.page + '"][data-button="' + wsm.data.button + '"]');
+			button.find('span.faicon').remove();
+			if (wsm.data.faicon !== undefined) {
+				button.append('<span class="faicon ' + wsm.data.faicon + '"></span>');
 			}
 			break;
 		case "response_sendPageButtonEvent":

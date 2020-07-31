@@ -6,12 +6,12 @@ export default class ActionDataCounter extends BaseActionData {
     type: string;
     value: number;
 
-    constructor(buttonInfo: any = {}) {
-        super(buttonInfo);
+    constructor(params: any = {}) {
+        super(params);
 
-        this.variable = buttonInfo.variable;
-        this.type = buttonInfo.type;
-        this.value = buttonInfo.value;
+        this.variable = params.variable;
+        this.type = params.type;
+        this.value = params.value;
     }
 
     protected executePre() {

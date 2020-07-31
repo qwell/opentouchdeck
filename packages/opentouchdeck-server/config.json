@@ -1,0 +1,108 @@
+{
+  "plugins": [
+    {
+      "name": "OBS WebSocket",
+      "data": {
+        "address": "localhost",
+        "port": 4444,
+        "password": null
+      }
+    }
+  ],
+  "pages": [
+    {
+      "title": "Page One",
+      "buttons": [
+        {
+          "position": 0,
+          "faicon": "fa fa-user",
+          "action": {
+            "name": "Counter",
+            "params": {
+              "type": "increment",
+              "value": 1,
+              "variable": "fooCounter"
+            }
+          }
+        },
+        {
+          "position": 1,
+          "faicon": "fab fa-facebook",
+          "action": {
+            "name": "Random",
+            "params": {
+              "type": "list",
+              "choices": [
+                "rock",
+                "paper",
+                "scissors"
+              ],
+              "variable": "fooRandom"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Page Two",
+      "buttons": [
+        {
+          "position": 0,
+          "faicon": "fa fa-bicycle",
+          "action": {
+            "name": "OBS WebSocket",
+            "params": {
+              "address": "localhost",
+              "port": 4444
+            }
+          }
+        },
+        {
+          "position": 1,
+          "faicon": "fab fa-twitch",
+          "action": {
+            "name": "Twitch",
+            "params": {
+              "channel": "#northantara",
+              "text": "[BOT] Hi.  I am a bot."
+            }
+          },
+          "triggers": [
+            {
+              "event": "twitch/chat",
+              "data": {
+                "channel": "#northantara",
+                "user": "northantara",
+                "message": "youtube"
+              },
+              "UI": {
+                "faicon": "fab fa-youtube"
+              }
+            },
+            {
+              "event": "twitch/chat",
+              "data": {
+                "channel": "#northantara",
+                "user": "northantara",
+                "message": "mixer"
+              },
+              "UI": {
+                "faicon": "fab fa-mixer"
+              }
+            },
+            {
+              "event": "twitch/chat",
+              "data": {
+                "channel": "#northantara",
+                "message": "twitch"
+              },
+              "UI": {
+                "faicon": "fab fa-twitch"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

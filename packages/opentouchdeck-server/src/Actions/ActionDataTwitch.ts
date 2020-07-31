@@ -8,11 +8,11 @@ export default class ActionDataTwitch extends BaseActionData {
     channel: string;
     text: string;
 
-    constructor(buttonInfo: any = {}) {
-        super(buttonInfo);
+    constructor(params: any = {}) {
+        super(params);
 
-        this.channel = buttonInfo.channel;
-        this.text = buttonInfo.text;
+        this.channel = params.channel;
+        this.text = params.text;
     }
 
     protected executePre() {

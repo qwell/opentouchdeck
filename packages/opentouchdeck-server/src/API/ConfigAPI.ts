@@ -14,10 +14,15 @@ export default class ConfigAPI {
                 ConfigData.addPage(Page.fromJSON(page));
             });
         }
+        if (dataJSON.plugins) {
+            dataJSON.plugins.forEach((plugin: any) => {
+                ConfigData.setPluginConfig(plugin.name, plugin);
+            });
+        }
     }
 
     reloadConfig(filepath: string) {
-        ConfigData.clear();
+        ConfigData.clearPages();
         this.loadConfig(filepath);
         console.log("Reloaded config.");
     }

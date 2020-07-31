@@ -4,11 +4,11 @@ export default class ActionDataURL extends BaseActionData {
     url: string = "";
     background: boolean = false;
 
-    constructor(buttonInfo: any = {}) {
-        super(buttonInfo);
+    constructor(params: any = {}) {
+        super(params);
 
-        this.url = buttonInfo.url;
-        this.background = buttonInfo.background;
+        this.url = params.url;
+        this.background = params.background;
     }
 
     protected executePre() {

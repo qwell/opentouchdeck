@@ -1,7 +1,7 @@
 export default class BaseActionData {
     uuid: string | null = null;
 
-    constructor(buttonInfo: any = {}) {
+    constructor(params: any = {}) {
     }
 
     execute(params: any = {}) {

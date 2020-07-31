@@ -11,7 +11,7 @@ core library
 		URL
 			foreground
 				client-side?
-			background
+			background (cURL?)
 				store/broadcast response?
 		HID/input
 			keyboard-only for now
@@ -47,12 +47,10 @@ core library
 	client API implementation
 
 otd-server
-	websocket wrapper for client API (plugin?)
+	websocket wrapper for client API
 		electron
 		web
 		mobile
-	REST/pubsub wrapper for client API (plugin?)
-		idkmybffJill?
 	configuration management UI
 	plugin management UI
 
@@ -60,6 +58,7 @@ otd-client
 	client UI
 	get deck configuration from otd-server
 	send/receive messages to otd-server
+	play audio in client in response to server events?
 
 plugin contents
 	assets

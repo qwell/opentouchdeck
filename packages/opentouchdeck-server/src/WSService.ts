@@ -36,7 +36,6 @@ export default class WSService {
                         var pages = this.apiotd.pages.getPages();
                         ws.send(new WSMessage("pagesUpdate", pages).toString());
                         pages.forEach(page => {
-                            //ws.send(new WSMessage("response_getPage", this.apiotd.pages.getPage(page)).toString());
                             var buttons = this.apiotd.buttons.getButtons(page);
 
                             ws.send(new WSMessage("pageButtonsUpdate", {
