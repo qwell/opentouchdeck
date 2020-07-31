@@ -1,7 +1,7 @@
-import BaseActionData from './BaseActionData';
-import Variables, { Variable } from '../Variables';
+import Plugin from '../../Plugin';
+import Variables, { Variable } from '../../Variables';
 
-export default class ActionDataCounter extends BaseActionData {
+export default class PluginCounter extends Plugin {
     variable: string;
     type: string;
     value: number;
@@ -14,7 +14,7 @@ export default class ActionDataCounter extends BaseActionData {
         this.value = params.value;
     }
 
-    protected executePre() {
+    executePre() {
         var counter: number = Variables.getVariable(this.variable);
         if (counter === undefined) {
             counter = 0;
@@ -23,7 +23,7 @@ export default class ActionDataCounter extends BaseActionData {
         console.log("Pre: " + counter);
     }
 
-    protected executePost() {
+    executePost() {
         var counter: number = Variables.getVariable(this.variable);
         if (counter === undefined) {
             counter = 0;
@@ -44,5 +44,9 @@ export default class ActionDataCounter extends BaseActionData {
         Variables.setVariable(this.variable, counter)
 
         console.log("Post: " + counter);
+    }
+
+    eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {
+        return true;
     }
 }

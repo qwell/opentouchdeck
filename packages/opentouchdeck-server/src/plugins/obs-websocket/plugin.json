@@ -1,4 +1,5 @@
 {
-    "name": "OBS WebSocket",
+    "name": "obs-websocket",
+    "display": "OBS WebSocket",
     "description": "Handle OBS scenes and sources"
 }

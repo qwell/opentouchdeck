@@ -5,11 +5,13 @@ import * as path from 'path';
 
 export default abstract class Plugin {
     name: string = "";
+    display: string = "";
     description: string = "";
     eventList: string[] = [];
 
     constructor(pluginData: any) {
         this.name = pluginData.name;
+        this.display = pluginData.display;
         this.description = pluginData.description;
     }
 
@@ -53,6 +55,7 @@ export default abstract class Plugin {
         ConfigData.setPluginConfig(this.name, { name: this.name, data: config });
     }
 
+    abstract eventDataMatch(event: string, configdata: any, eventdata: any): boolean;
     abstract executePre(params: any): void;
     abstract executePost(params: any): void;
 }

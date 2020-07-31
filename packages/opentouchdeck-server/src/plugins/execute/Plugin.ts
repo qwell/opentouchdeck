@@ -1,6 +1,6 @@
-import BaseActionData from './BaseActionData';
+import Plugin from '../../Plugin';
 
-export default class ActionDataExecute extends BaseActionData {
+export default class PluginExecute extends Plugin {
     path: string = "";
     args: string[] = [];
 
@@ -11,11 +11,15 @@ export default class ActionDataExecute extends BaseActionData {
         this.args = params.args;
     }
 
-    protected executePre() {
+    executePre() {
         console.log("Pre: " + this.path + " " + this.args.join(' '));
     }
 
-    protected executePost() {
+    executePost() {
         console.log("Post: " + this.path + " " + this.args.join(' '));
+    }
+
+    eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {
+        return true;
     }
 }

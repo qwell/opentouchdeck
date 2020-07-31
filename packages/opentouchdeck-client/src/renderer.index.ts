@@ -5,7 +5,9 @@ $(document).ready(() => {
 	}).toString())
 });
 
-var buttonMap: any[] = [];
+var pages: string[] = [];
+var currentPage: string = "";
+var buttons: any[] = [];
 
 function otdwsSend(type: string, data?: any) {
 	window.ipcapi.send('otdws', new WSMessage(type, data).toString())
@@ -17,96 +19,65 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 		return;
 	}
 
-	var responseData: any;
-
-	// TODO Create a static class to hold all of the registered message types and send to the appropriate callback(s).
 	switch (wsm.type) {
 		case "serverHello":
 			console.log("Hello server " + wsm.data.message + " version " + wsm.data.version);
 			break;
 		case "pagesUpdate":
-			console.log(wsm.data);
 			wsm.data.forEach((page: string) => {
-				buttonMap.push({ "page": page, "buttons": [] });
+				pages.push(page);
 			});
 			break;
 		case "pageButtonsUpdate":
+			$('.deck-page').children().remove();
+			buttons = [];
+			currentPage = wsm.data.page;
 			wsm.data.buttons.forEach((button: number) => {
-				var map = buttonMap.find(page => wsm.data.page === page.page);
-				if (map !== undefined) {
-					map.buttons.push({ "button": button });
-				}
+				buttons.push({ button: button });
 			});
 			break;
 		case "pageButtonUpdate":
-			var map = buttonMap.find(item => wsm.data.page === item.page);
-			if (map !== undefined) {
-				map.buttons[wsm.data.button.position] = { info: wsm.data.button.actionData, callback: "" };
+			buttons = buttons.filter(item => wsm.data.button.position !== item.button);
 
-				var onclick = "sendPageButtonEvent('" + wsm.data.page + "', '" + wsm.data.button.position + "')";
-				var oldDiv = $('.deck-page > #' + wsm.data.button.actionDataUUID);
-				var newDiv = $('<div id="' + wsm.data.button.actionDataUUID + '" data-page="' + wsm.data.page + '" data-button="' + wsm.data.button.position + '" class="deck-button" onclick="' + onclick + '"></div>');
-				if (wsm.data.button.faicon !== undefined) {
-					var faicon = $('<span class="faicon ' + wsm.data.button.faicon + '"></span>');
-					newDiv.append(faicon);
-				}
+			buttons.push({ button: wsm.data.button.position/*, params: null*/ });
 
-				if (oldDiv.length === 0) {
-					$('.deck-page').append(newDiv);
-				} else {
-					oldDiv.replaceWith(newDiv);
-				}
+			var onclick = "sendButtonEvent(" + wsm.data.button.position + ")";
+			var newDiv = $('<div data-button="' + wsm.data.button.position + '" class="deck-button" onclick="' + onclick + '"></div>');
 
+			if (wsm.data.button.faicon !== undefined) {
+				var faicon = $('<span class="faicon ' + wsm.data.button.faicon + '"></span>');
+				newDiv.append(faicon);
 			}
+
+			$('.deck-page').append(newDiv);
 			break;
-		case "pageButtonIconUpdate":
-			var button = $('.deck-page [data-page="' + wsm.data.page + '"][data-button="' + wsm.data.button + '"]');
+		case "pageButtonUIUpdate":
+			console.log(wsm.data);
+			var button = $('.deck-page [data-button="' + wsm.data.button + '"]');
+
+			/* Remove all UI modifications. */
 			button.find('span.faicon').remove();
+
 			if (wsm.data.faicon !== undefined) {
 				button.append('<span class="faicon ' + wsm.data.faicon + '"></span>');
 			}
 			break;
-		case "response_sendPageButtonEvent":
-			console.log(wsm.data);
-			buttonMap.forEach((page: any) => {
-				if (page.page === wsm.data.page) {
-					page.buttons.forEach((button: any) => {
-						if (button.button === wsm.data.button) {
-							switch (button.callback) {
-								case "0-0":
-									otdwsSend('getVariable', {
-										variableName: 'fooCounter'
-									});
-							}
-						}
-					})
-				}
-			});
-			break;
-		case "response_getVariable":
-			$('.variable').val(wsm.data);
-			break;
-		case "response_setVariable":
-			otdwsSend('getVariable', {
-				variableName: 'bob'
-			});
-			break;
-	}
-
-	if (!wsm.type.startsWith("response_")) {
-		otdwsSend("response_" + wsm.type, responseData);
 	}
 });
 
-function sendPageButtonEvent(page: string, button: any) {
-	var map = buttonMap.find(item => page === item.page);
-	if (map !== undefined) {
+function sendButtonEvent(button: any) {
+	buttons.forEach(item => {
+		console.log(item);
+		if (item.button !== button) {
+			return;
+		}
+		console.log("Found it: " + button);
 		otdwsSend('sendPageButtonEvent', {
-			"page": page,
-			"button": button,
-			"params": map.buttons[button]["info"]
+			"page": currentPage,
+			"button": button/*,
+			"params": item.params*/
 		});
-	}
+	});
 }
 
 class WSMessage {

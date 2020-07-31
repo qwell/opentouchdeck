@@ -8,7 +8,6 @@ export default class ButtonsAPI {
     getButtons(pageName: string): number[] {
         var buttonList: number[] = [];
         const page: Page | undefined = ConfigData.getPage(pageName);
-        // TODO Get rid of this nesting, once var? is figured out
         if (page !== undefined) {
             page.buttons.forEach(button => buttonList.push(button.position));
         }
@@ -29,32 +28,19 @@ export default class ButtonsAPI {
                     params: button.params
                 }
             }
-            return null;
+            return undefined;
         }
     }
 
-    buttonEvent(pageName: string, buttonPosition: number, buttonParams?: any): any {
-        const action: string = "Twitch";
+    buttonEvent(pageName: string, buttonPosition: number/*, buttonParams?: any*/): any {
         const page: Page | undefined = ConfigData.getPage(pageName);
-        // TODO Get rid of this nesting, once var? is figured out
         if (page) {
             const button: Button | undefined = page.buttons.find(item => item.position === buttonPosition);
             if (button) {
-                var plugin: Plugin | undefined = PluginHandler.getPlugin(action);
+                var plugin: Plugin | undefined = PluginHandler.getPlugin(button.action);
                 if (plugin) {
-                    plugin.execute(buttonParams);
+                    plugin.execute(button.params);
                 }
-                /*
-                var actionData: BaseActionData | undefined
-                if (button.actionDataUUID) {
-                    actionData = ActionList.getActionData(button.actionDataUUID);
-                }
-                if (actionData) {
-                    actionData.execute(buttonParams);
-                }
-
-                console.log(button);
-                */
             }
         }
 

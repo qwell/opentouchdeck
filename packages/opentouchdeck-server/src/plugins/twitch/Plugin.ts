@@ -1,31 +1,18 @@
-import BaseAction from './BaseAction';
-import BaseActionData from './BaseActionData';
-import ActionDataTwitch from './ActionDataTwitch';
+import EventHandlers from '../../EventHandlers';
+import Plugin from '../../Plugin';
 
 import TwitchClient from 'twitch';
 import ChatClient, { LogLevel } from 'twitch-chat-client';
 
 import * as fs from 'fs';
-import EventHandlers from '../EventHandlers';
+import PagesAPI from '../../API/PagesAPI';
 
-export default class ActionTwitch extends BaseAction {
-    name = "Twitch";
-    description = "Do Twitch stuff.  I don't know";
-
-    emittable = [
-        "twitch/chat"
-    ];
-
+export default class PluginTwitch extends Plugin {
     twitchClient: TwitchClient;
     twitchChat: ChatClient;
 
-    constructor() {
-        super();
-
-
-        // TODO Figure out what needs to be done to make this async.
-
-        //TODO Put all of this into a subclass (or something).
+    constructor(params: any = {}) {
+        super(params);
         //const scope = ["chat:read", "chat:edit"];
         const scope = [
             "user:read:broadcast",
@@ -90,8 +77,15 @@ export default class ActionTwitch extends BaseAction {
         }
     }
 
-    createActionData(data: any = {}): BaseActionData {
-        return new ActionDataTwitch(data);
+    executePre(params: any = {}) {
+        if (!params.channel.startsWith("#")) {
+            params.channel = "#" + params.channel;
+        }
+
+        this.twitchChat.say(params.channel, params.text);
+    }
+
+    executePost(params: any = {}) {
     }
 
     eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {
@@ -113,4 +107,3 @@ export default class ActionTwitch extends BaseAction {
         return false;
     }
 }
-export { ActionDataTwitch };

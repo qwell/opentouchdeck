@@ -1,7 +1,7 @@
 {
   "plugins": [
     {
-      "name": "OBS WebSocket",
+      "name": "obs-websocket",
       "data": {
         "address": "localhost",
         "port": 4444,
@@ -17,7 +17,7 @@
           "position": 0,
           "faicon": "fa fa-user",
           "action": {
-            "name": "Counter",
+            "name": "counter",
             "params": {
               "type": "increment",
               "value": 1,
@@ -29,7 +29,7 @@
           "position": 1,
           "faicon": "fab fa-facebook",
           "action": {
-            "name": "Random",
+            "name": "random",
             "params": {
               "type": "list",
               "choices": [
@@ -40,17 +40,12 @@
               "variable": "fooRandom"
             }
           }
-        }
-      ]
-    },
-    {
-      "title": "Page Two",
-      "buttons": [
+        },
         {
-          "position": 0,
+          "position": 2,
           "faicon": "fa fa-bicycle",
           "action": {
-            "name": "OBS WebSocket",
+            "name": "obs-websocket",
             "params": {
               "address": "localhost",
               "port": 4444
@@ -58,10 +53,10 @@
           }
         },
         {
-          "position": 1,
+          "position": 3,
           "faicon": "fab fa-twitch",
           "action": {
-            "name": "Twitch",
+            "name": "twitch",
             "params": {
               "channel": "#northantara",
               "text": "[BOT] Hi.  I am a bot."

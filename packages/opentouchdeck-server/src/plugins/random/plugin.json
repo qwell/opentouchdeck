@@ -1,0 +1,5 @@
+{
+    "name": "random",
+    "display": "Random",
+    "description": "Create a random value from a range."
+}

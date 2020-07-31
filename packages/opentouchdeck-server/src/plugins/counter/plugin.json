@@ -1,0 +1,5 @@
+{
+    "name": "counter",
+    "display": "Counter",
+    "description": "Stores a numeric counter."
+}

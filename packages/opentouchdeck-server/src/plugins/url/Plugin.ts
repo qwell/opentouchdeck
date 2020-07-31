@@ -1,6 +1,6 @@
-import BaseActionData from './BaseActionData';
+import Plugin from '../../Plugin';
 
-export default class ActionDataURL extends BaseActionData {
+export default class PluginURL extends Plugin {
     url: string = "";
     background: boolean = false;
 
@@ -11,11 +11,15 @@ export default class ActionDataURL extends BaseActionData {
         this.background = params.background;
     }
 
-    protected executePre() {
+    executePre() {
         console.log("Pre: " + this.url + (this.background ? " (Background)" : ""));
     }
 
-    protected executePost() {
+    executePost() {
         console.log("Post: " + this.url + (this.background ? " (Background)" : ""));
+    }
+
+    eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {
+        return true;
     }
 }

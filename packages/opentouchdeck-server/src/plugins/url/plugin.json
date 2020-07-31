@@ -1,0 +1,5 @@
+{
+    "name": "url",
+    "display": "URL",
+    "description": "Opens the specified URL in your default web browser (or optionally in the background)."
+}

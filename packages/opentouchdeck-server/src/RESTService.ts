@@ -30,14 +30,6 @@ export default class RESTService {
             res.send(this.apiotd.config.reloadConfig(path.join(__dirname, '../testconfig.json')));
         });
 
-        app.get('/actions', async (req: any, res) => {
-            res.send(this.apiotd.actions.getActions());
-        });
-
-        app.get('/actions/:name', async (req: any, res) => {
-            res.send(this.apiotd.actions.getAction(req.params.name));
-        });
-
         app.get('/pages', async (req: any, res) => {
             res.send(this.apiotd.pages.getPages());
         });
@@ -55,7 +47,7 @@ export default class RESTService {
         });
 
         app.post('/page/:page/button/:button/event', async (req: any, res) => {
-            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button), req.body));
+            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button)/*, req.body*/));
         });
 
         app.get('/variables', async (req: any, res) => {

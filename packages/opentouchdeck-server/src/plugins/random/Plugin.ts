@@ -1,7 +1,7 @@
-import BaseActionData from './BaseActionData';
-import Variables, { Variable } from '../Variables';
+import Plugin from '../../Plugin';
+import Variables, { Variable } from '../../Variables';
 
-export default class ActionDataRandom extends BaseActionData {
+export default class PluginRandom extends Plugin {
     type: string;
     variable: string;
 
@@ -32,7 +32,7 @@ export default class ActionDataRandom extends BaseActionData {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    protected executePre() {
+    executePre() {
         var previous: number = Variables.getVariable(this.variable);
         if (previous === undefined) {
             previous = 0;
@@ -41,7 +41,7 @@ export default class ActionDataRandom extends BaseActionData {
         console.log("Pre: " + previous);
     }
 
-    protected executePost() {
+    executePost() {
         var result = null;
         switch (this.type) {
             case "list":
@@ -73,5 +73,9 @@ export default class ActionDataRandom extends BaseActionData {
         Variables.setVariable(this.variable, result);
 
         console.log("Post: " + result);
+    }
+
+    eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {
+        return true;
     }
 }

@@ -58,12 +58,6 @@ export default class WSService {
                     case "reloadConfig":
                         responseData = this.apiotd.config.reloadConfig(this.apiotd.variables.getVariable("MAINCONFIG"));
                         break;
-                    case "getActions":
-                        responseData = this.apiotd.actions.getActions();
-                        break;
-                    case "getAction":
-                        responseData = this.apiotd.actions.getAction(wsm.data.name);
-                        break;
                     case "getPages":
                         responseData = this.apiotd.pages.getPages();
                         break;
@@ -83,11 +77,11 @@ export default class WSService {
                         };
                         break;
                     case "sendPageButtonEvent":
-                        console.log("Got click on page " + wsm.data.page + " button " + wsm.data.button + " params " + wsm.data.params);
+                        console.log("Got click on page " + wsm.data.page + " button " + wsm.data.button + (wsm.data.params ? " params " + wsm.data.params : ""));
                         responseData = {
                             page: wsm.data.page,
                             button: wsm.data.button,
-                            output: this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button), wsm.data.params)
+                            output: this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button)/*, wsm.data.params*/)
                         }
                         break;
                     case "getVariables":

@@ -1,6 +1,3 @@
-import BaseAction from '../../Actions/BaseAction';
-import BaseActionData from '../../Actions/BaseActionData';
-import ActionDataOBSWS from '../../Actions/ActionDataOBSWS';
 import PluginHandler from '../../PluginHandler';
 import Plugin from '../../Plugin';
 
@@ -59,4 +56,3 @@ export default class PluginOBSWS extends Plugin {
     executePost(params = {}) {
     }
 }
-export { ActionDataOBSWS };
