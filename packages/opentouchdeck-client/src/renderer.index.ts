@@ -28,12 +28,12 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 				pages.push(page);
 			});
 			break;
-		case "pageButtonsUpdate":
+		case "pageButtonPositionsUpdate":
 			$('.deck-page').children().remove();
 			buttons = [];
 			currentPage = wsm.data.page;
-			wsm.data.buttons.forEach((button: number) => {
-				buttons.push({ button: button });
+			wsm.data.positions.forEach((position: number) => {
+				buttons.push({ button: position });
 			});
 			break;
 		case "pageButtonUpdate":

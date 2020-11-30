@@ -12,11 +12,11 @@ export default class PluginExecute extends Plugin {
     }
 
     executePre() {
-        console.log("Pre: " + this.path + " " + this.args.join(' '));
+//        console.log("Pre: " + this.path + " " + this.args.join(' '));
     }
 
     executePost() {
-        console.log("Post: " + this.path + " " + this.args.join(' '));
+//        console.log("Post: " + this.path + " " + this.args.join(' '));
     }
 
     eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {

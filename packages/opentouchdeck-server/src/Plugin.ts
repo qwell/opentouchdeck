@@ -21,7 +21,6 @@ export default abstract class Plugin {
 
         if (!fs.existsSync(pluginfile)) {
             /* Try with a ../src/ dir for in-tree development */
-            //pluginfile = plugindir.replace(/[\/\\]lib[\/\\]/, '/src/');
             pluginfile = pluginfile.replace(path.sep + 'lib' + path.sep, path.sep + 'src' + path.sep);
             if (!fs.existsSync(pluginfile)) {
                 throw new Error('Could not load plugin');

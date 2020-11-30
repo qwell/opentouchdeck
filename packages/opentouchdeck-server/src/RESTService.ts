@@ -39,7 +39,7 @@ export default class RESTService {
         });
 
         app.get('/page/:page/buttons', async (req: any, res) => {
-            res.send(this.apiotd.buttons.getButtons(req.params.page));
+            res.send(this.apiotd.buttons.getButtonPositions(req.params.page));
         });
 
         app.get('/page/:page/button/:button', async (req: any, res) => {

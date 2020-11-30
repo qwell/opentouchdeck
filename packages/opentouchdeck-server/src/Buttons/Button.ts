@@ -28,6 +28,6 @@ export default class Button {
 
 export class ButtonTrigger {
 	event: string = "";
-	data: any;
+	match: any;
 	UI: any;
 }

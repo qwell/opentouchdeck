@@ -13,20 +13,20 @@ import * as path from 'path';
 const DEFAULT_PORT = 2501;
 
 EventHandlers.triggers.on('plugin/registered', name => {
-    const newplugin: Plugin = <Plugin>PluginHandler.getPlugin(name);
-    newplugin.execute();
+    //const newplugin: Plugin = <Plugin>PluginHandler.getPlugin(name);
+    console.log(name);
 });
 
 EventHandlers.triggers.on('plugin/configupdated', name => {
     console.log("Plugin Config Updated: " + name);
 });
 
-EventHandlers.triggers.on('ui/buttonupdate', (page, button, UI) => {
+EventHandlers.triggers.on('ui/buttonupdate', event => {
     WSService.wss.clients.forEach(ws => {
         var wsOutput = {
-            "page": page,
-            "button": button,
-            "faicon": UI.faicon
+            "page": event.page,
+            "button": event.button,
+            "faicon": event.UI.faicon
         };
         ws.send(new WSMessage("pageButtonUIUpdate", wsOutput).toString());
     });
@@ -63,25 +63,31 @@ fs.readdir(pluginsdir, (err, contents) => {
     })
 });
 
-
-
 WSService.initialize(DEFAULT_PORT, apiotd);
 WSService.start();
 
 // Add triggers from configuration to global event handlers
 var pages = apiotd.pages.getPages();
 pages.forEach((page: string) => {
-    var buttons = apiotd.buttons.getButtons(page);
-    buttons.forEach(button => {
-        const b = apiotd.buttons.getButton(page, button);
-        if (b === undefined) {
+    var positions = apiotd.buttons.getButtonPositions(page);
+    positions.forEach(position => {
+        const button = apiotd.buttons.getButton(page, position);
+        if (button === undefined) {
             return;
         }
-        b.triggers.forEach((trigger: ButtonTrigger) => {
-            EventHandlers.triggers.on(trigger.event, (data) => {
-                var plugin = PluginHandler.getPlugin(b.action);
-                if (plugin?.eventDataMatch(trigger.event, trigger.data, data)) {
-                    EventHandlers.triggers.emit('ui/buttonupdate', page, button, trigger.UI);
+        button.triggers.forEach((trigger: ButtonTrigger) => {
+            EventHandlers.triggers.on(trigger.event, data => {
+                /*
+                 * This needs to not happen directly on a plugin function call.
+                 * The button action (which should be expanded?) and button triggers are not related in any way.
+                 */
+                var plugin = PluginHandler.getPlugin(button.action);
+                if (plugin?.eventDataMatch(trigger.event, trigger.match, data)) {
+                    EventHandlers.triggers.emit('ui/buttonupdate', {
+                        page: page,
+                        button: position,
+                        UI: trigger.UI
+                    });
                 }
             });
         });

@@ -25,8 +25,6 @@ export default class WSService {
                     return;
                 }
 
-                var responseData: any;
-
                 // TODO Create a static class to hold all of the registered message types and send to the appropriate callback(s).
                 switch (wsm.type) {
                     case "clientHello":
@@ -36,69 +34,54 @@ export default class WSService {
                         var pages = this.apiotd.pages.getPages();
                         ws.send(new WSMessage("pagesUpdate", pages).toString());
                         pages.forEach(page => {
-                            var buttons = this.apiotd.buttons.getButtons(page);
+                            var positions = this.apiotd.buttons.getButtonPositions(page);
 
-                            ws.send(new WSMessage("pageButtonsUpdate", {
+                            ws.send(new WSMessage("pageButtonPositionsUpdate", {
                                 page: page,
-                                buttons: buttons
+                                positions: positions
                             }).toString());
 
-                            buttons.forEach(button =>
+                            positions.forEach(position =>
                                 ws.send(new WSMessage("pageButtonUpdate", {
                                     page: page,
-                                    button: this.apiotd.buttons.getButton(page, button)
+                                    button: this.apiotd.buttons.getButton(page, position)
                                 }).toString())
                             )
                         })
-                        responseData = {};
                         break;
                     case "loadConfig":
-                        responseData = this.apiotd.config.loadConfig(this.apiotd.variables.getVariable("MAINCONFIG"));
+                        this.apiotd.config.loadConfig(this.apiotd.variables.getVariable("MAINCONFIG"));
                         break;
                     case "reloadConfig":
-                        responseData = this.apiotd.config.reloadConfig(this.apiotd.variables.getVariable("MAINCONFIG"));
+                        this.apiotd.config.reloadConfig(this.apiotd.variables.getVariable("MAINCONFIG"));
                         break;
                     case "getPages":
-                        responseData = this.apiotd.pages.getPages();
+                        this.apiotd.pages.getPages();
                         break;
                     case "getPage":
-                        responseData = this.apiotd.pages.getPage(wsm.data.page);
+                        this.apiotd.pages.getPage(wsm.data.page);
                         break;
-                    case "getPageButtons":
-                        responseData = {
-                            page: wsm.data.page,
-                            buttons: this.apiotd.buttons.getButtons(wsm.data.page)
-                        };
+                    case "getPageButtonPositions":
+                        this.apiotd.buttons.getButtonPositions(wsm.data.page)
                         break;
                     case "getPageButton":
-                        responseData = {
-                            page: wsm.data.page,
-                            button: this.apiotd.buttons.getButton(wsm.data.page, Number(wsm.data.button))
-                        };
+                        this.apiotd.buttons.getButton(wsm.data.page, Number(wsm.data.button))
                         break;
                     case "sendPageButtonEvent":
                         console.log("Got click on page " + wsm.data.page + " button " + wsm.data.button + (wsm.data.params ? " params " + wsm.data.params : ""));
-                        responseData = {
-                            page: wsm.data.page,
-                            button: wsm.data.button,
-                            output: this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button)/*, wsm.data.params*/)
-                        }
+                        this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button)/*, wsm.data.params*/);
                         break;
                     case "getVariables":
-                        responseData = this.apiotd.variables.getVariables();
+                        this.apiotd.variables.getVariables();
                         break;
                     case "getVariable":
-                        responseData = this.apiotd.variables.getVariable(wsm.data.name);
+                        this.apiotd.variables.getVariable(wsm.data.name);
                         break;
                     case "setVariable":
-                        responseData = this.apiotd.variables.setVariable(wsm.data.name, wsm.data.value !== undefined ? wsm.data.value : null);
+                        this.apiotd.variables.setVariable(wsm.data.name, wsm.data.value !== undefined ? wsm.data.value : null);
                         break;
                     default:
                         return;
-                }
-
-                if (!wsm.type.startsWith("response_")) {
-                    ws.send(new WSMessage("response_" + wsm.type, responseData).toString());
                 }
             })
         })

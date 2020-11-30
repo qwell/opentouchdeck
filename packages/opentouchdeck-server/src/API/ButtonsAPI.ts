@@ -5,7 +5,7 @@ import PluginHandler from '../PluginHandler';
 import Plugin from '../Plugin';
 
 export default class ButtonsAPI {
-    getButtons(pageName: string): number[] {
+    getButtonPositions(pageName: string): number[] {
         var buttonList: number[] = [];
         const page: Page | undefined = ConfigData.getPage(pageName);
         if (page !== undefined) {
