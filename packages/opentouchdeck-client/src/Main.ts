@@ -2,7 +2,9 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as WebSocket from 'ws';
 import * as path from 'path';
 
-const WS_URL = "ws://127.0.0.1:2501";
+const WS_ADDR = "127.0.0.1";
+const WS_PORT = "2501";
+const WS_URL = "ws://" + WS_ADDR + ":" + WS_PORT;
 
 export default class Main {
 	static mainWindow: BrowserWindow | null = null;
