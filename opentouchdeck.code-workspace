@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "packages\\opentouchdeck-server"
+		},
+		{
+			"path": "packages\\opentouchdeck-client"
+		}
+	],
+	"settings": {}
+}
