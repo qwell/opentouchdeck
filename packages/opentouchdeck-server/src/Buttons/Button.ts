@@ -1,5 +1,6 @@
 export default class Button {
-	position: number;
+	x: number;
+	y: number;
 	icon: string | undefined;
 	faicon: string | undefined;
 	action: string;
@@ -7,7 +8,8 @@ export default class Button {
 	triggers: ButtonTrigger[] = [];
 
 	private constructor(data: any = {}) {
-		this.position = data.position;
+		this.x = data.x;
+		this.y = data.y;
 		this.icon = data.icon;
 		this.faicon = data.faicon;
 

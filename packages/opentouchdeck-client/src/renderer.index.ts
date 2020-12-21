@@ -32,17 +32,19 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			$('.deck-page').children().remove();
 			buttons = [];
 			currentPage = wsm.data.page;
-			wsm.data.positions.forEach((position: number) => {
-				buttons.push({ button: position });
+			wsm.data.positions.forEach((position: { x: number, y: number }) => {
+				buttons.push({ x: position.x, y: position.y });
 			});
 			break;
 		case "pageButtonUpdate":
-			buttons = buttons.filter(item => wsm.data.button.position !== item.button);
+			buttons = buttons.filter(item => (wsm.data.button.x !== item.buttonX && wsm.data.button.y !== item.buttonY));
 
-			buttons.push({ button: wsm.data.button.position/*, params: null*/ });
+			buttons.push({ x: wsm.data.button.x, y: wsm.data.button.y /*, params: null*/ });
 
-			var onclick = "sendButtonEvent(" + wsm.data.button.position + ")";
-			var newDiv = $('<div data-button="' + wsm.data.button.position + '" class="deck-button" onclick="' + onclick + '"></div>');
+			var onclick = "sendButtonEvent(" + wsm.data.button.x + ", " + wsm.data.button.y + ")";
+			var newDiv = $('<div data-x="' + wsm.data.button.x + '" data-y="' + wsm.data.button.y + '" class= "deck-button" onclick = "' + onclick + '" > </div>');
+			newDiv[0].style.gridColumnStart = wsm.data.button.x + 1;
+			newDiv[0].style.gridRowStart = wsm.data.button.y + 1;
 
 			if (wsm.data.button.faicon !== undefined) {
 				var faicon = $('<span class="faicon ' + wsm.data.button.faicon + '"></span>');
@@ -53,7 +55,7 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			break;
 		case "pageButtonUIUpdate":
 			console.log(wsm.data);
-			var button = $('.deck-page [data-button="' + wsm.data.button + '"]');
+			var button = $('.deck-page [data-x="' + wsm.data.button.x + '", data-y="' + wsm.data.button.y + '"]');
 
 			/* Remove all UI modifications. */
 			button.find('span.faicon').remove();
@@ -65,16 +67,16 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 	}
 });
 
-function sendButtonEvent(button: any) {
+function sendButtonEvent(x: any, y: any) {
 	buttons.forEach(item => {
-		console.log(item);
-		if (item.button !== button) {
+		if (item.x !== x || item.y !== y) {
 			return;
 		}
-		console.log("Found it: " + button);
+		console.log("Found it: " + x + ", " + y);
 		otdwsSend('sendPageButtonEvent', {
 			"page": currentPage,
-			"button": button/*,
+			"x": x,
+			"y": y/*,
 			"params": item.params*/
 		});
 	});

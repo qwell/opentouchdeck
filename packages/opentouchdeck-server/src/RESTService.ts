@@ -42,12 +42,12 @@ export default class RESTService {
             res.send(this.apiotd.buttons.getButtonPositions(req.params.page));
         });
 
-        app.get('/page/:page/button/:button', async (req: any, res) => {
-            res.send(this.apiotd.buttons.getButton(req.params.page, Number(req.params.button)));
+        app.get('/page/:page/button/:x/:y', async (req: any, res) => {
+            res.send(this.apiotd.buttons.getButton(req.params.page, Number(req.params.x), Number(req.params.y)));
         });
 
-        app.post('/page/:page/button/:button/event', async (req: any, res) => {
-            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.button)/*, req.body*/));
+        app.post('/page/:page/button/:x/:y/event', async (req: any, res) => {
+            res.send(this.apiotd.buttons.buttonEvent(req.params.page, Number(req.params.x), Number(req.params.y)/*, req.body*/));
         });
 
         app.get('/variables', async (req: any, res) => {

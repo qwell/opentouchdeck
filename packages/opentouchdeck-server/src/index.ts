@@ -71,7 +71,7 @@ var pages = apiotd.pages.getPages();
 pages.forEach((page: string) => {
     var positions = apiotd.buttons.getButtonPositions(page);
     positions.forEach(position => {
-        const button = apiotd.buttons.getButton(page, position);
+        const button = apiotd.buttons.getButton(page, position.x, position.y);
         if (button === undefined) {
             return;
         }

@@ -44,7 +44,7 @@ export default class WSService {
                             positions.forEach(position =>
                                 ws.send(new WSMessage("pageButtonUpdate", {
                                     page: page,
-                                    button: this.apiotd.buttons.getButton(page, position)
+                                    button: this.apiotd.buttons.getButton(page, position.x, position.y)
                                 }).toString())
                             )
                         })
@@ -62,14 +62,14 @@ export default class WSService {
                         this.apiotd.pages.getPage(wsm.data.page);
                         break;
                     case "getPageButtonPositions":
-                        this.apiotd.buttons.getButtonPositions(wsm.data.page)
+                        this.apiotd.buttons.getButtonPositions(wsm.data.page);
                         break;
                     case "getPageButton":
-                        this.apiotd.buttons.getButton(wsm.data.page, Number(wsm.data.button))
+                        this.apiotd.buttons.getButton(wsm.data.page, Number(wsm.data.x), Number(wsm.data.y));
                         break;
                     case "sendPageButtonEvent":
-                        console.log("Got click on page " + wsm.data.page + " button " + wsm.data.button + (wsm.data.params ? " params " + wsm.data.params : ""));
-                        this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.button)/*, wsm.data.params*/);
+                        console.log("Got click on page " + wsm.data.page + " x " + wsm.data.x + " y " + wsm.data.y + (wsm.data.params ? " params " + wsm.data.params : ""));
+                        this.apiotd.buttons.buttonEvent(wsm.data.page, Number(wsm.data.x), Number(wsm.data.y)/*, wsm.data.params*/);
                         break;
                     case "getVariables":
                         this.apiotd.variables.getVariables();
