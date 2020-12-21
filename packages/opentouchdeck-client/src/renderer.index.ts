@@ -37,8 +37,7 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			});
 			break;
 		case "pageButtonUpdate":
-			buttons = buttons.filter(item => (wsm.data.button.x !== item.buttonX && wsm.data.button.y !== item.buttonY));
-
+			buttons = buttons.filter(item => !(wsm.data.button.x === item.x && wsm.data.button.y === item.y));
 			buttons.push({ x: wsm.data.button.x, y: wsm.data.button.y /*, params: null*/ });
 
 			var onclick = "sendButtonEvent(" + wsm.data.button.x + ", " + wsm.data.button.y + ")";
@@ -55,7 +54,7 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			break;
 		case "pageButtonUIUpdate":
 			console.log(wsm.data);
-			var button = $('.deck-page [data-x="' + wsm.data.button.x + '", data-y="' + wsm.data.button.y + '"]');
+			var button = $('.deck-page [data-x="' + wsm.data.button.x + '"][data-y="' + wsm.data.button.y + '"]');
 
 			/* Remove all UI modifications. */
 			button.find('span.faicon').remove();
