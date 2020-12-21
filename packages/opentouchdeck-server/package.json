@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "lib",
-  "types": "lib/index",
+  "types": "lib",
   "repository": {
     "type": "git",
     "url": "https://github.com/qwell/opentouchdeck.git",
