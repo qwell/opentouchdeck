@@ -1,13 +1,13 @@
 import EventHandlers from '../../EventHandlers';
 import Plugin from '../../Plugin';
 
-import TwitchClient from 'twitch';
-import ChatClient, { LogLevel } from 'twitch-chat-client';
+import { ApiClient } from 'twitch';
+import { ChatClient } from 'twitch-chat-client';
 
 import * as fs from 'fs';
 
 export default class PluginTwitch extends Plugin {
-    twitchClient: TwitchClient;
+    twitchClient: ApiClient;
     twitchChat: ChatClient;
 
     constructor(params: any = {}) {
@@ -41,7 +41,7 @@ export default class PluginTwitch extends Plugin {
             secretData = {};
         }
 
-        this.twitchClient = TwitchClient.withCredentials(secretData.clientId, tokenData.accessToken, scope, {
+        this.twitchClient = ApiClient.withCredentials(secretData.clientId, tokenData.accessToken, scope, {
             clientSecret: secretData.clientSecret,
             refreshToken: tokenData.refreshToken,
             expiry: new Date(tokenData.expiryTimestamp),
