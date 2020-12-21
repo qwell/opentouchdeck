@@ -53,7 +53,6 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			$('.deck-page').append(newDiv);
 			break;
 		case "pageButtonUIUpdate":
-			console.log(wsm.data);
 			var button = $('.deck-page [data-x="' + wsm.data.button.x + '"][data-y="' + wsm.data.button.y + '"]');
 
 			/* Remove all UI modifications. */
