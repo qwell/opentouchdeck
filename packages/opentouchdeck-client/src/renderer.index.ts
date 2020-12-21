@@ -37,7 +37,7 @@ window.ipcapi.onMessage('otdws', (event: string, msg: any) => {
 			});
 			break;
 		case "pageButtonUpdate":
-			buttons = buttons.filter(item => !(wsm.data.button.x === item.x && wsm.data.button.y === item.y));
+			buttons = buttons.filter(item => (wsm.data.button.x !== item.x || wsm.data.button.y !== item.y));
 			buttons.push({ x: wsm.data.button.x, y: wsm.data.button.y /*, params: null*/ });
 
 			var onclick = "sendButtonEvent(" + wsm.data.button.x + ", " + wsm.data.button.y + ")";
