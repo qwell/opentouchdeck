@@ -1,6 +1,11 @@
 import Plugin from '../../Plugin';
 
 export default class PluginURL extends Plugin {
+    /*
+     * TODO This needs to do a GET/PUT/POST/DELETE
+     * Browser spawning should be done with execute or some other plugin.
+     */
+
     url: string = "";
     background: boolean = false;
 
