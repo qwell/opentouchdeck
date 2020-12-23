@@ -37,7 +37,12 @@ export default class PluginOBSWS extends Plugin {
             console.log('Changed Scene: ' + data["scene-name"]);
         })
 
-        this.OBS.connect({ address: (this.config.address ? this.config.address : 'localhost') + ':' + (this.config.port ? this.config.port : '4444'), password: this.config.password ? this.config.password : '' });
+        var config: any = this.config;
+
+        this.OBS.connect({
+            address: config.address + ':' + config.port,
+            password: config.password
+        });
     }
 
     eventDataMatch(event: string, configdata: any = {}, eventdata: any = {}): boolean {

@@ -7,12 +7,14 @@ export default abstract class Plugin {
     name: string = "";
     display: string = "";
     description: string = "";
+    defaults: any = {};
     eventList: string[] = [];
 
     constructor(pluginData: any) {
         this.name = pluginData.name;
         this.display = pluginData.display;
         this.description = pluginData.description;
+        this.defaults = pluginData.defaults ? pluginData.defaults : {};
     }
 
     static async loadFromPath(plugindir: string): Promise<Plugin> {
@@ -46,8 +48,15 @@ export default abstract class Plugin {
     }
 
     get config(): any {
-        const conf = ConfigData.getPluginConfig(this.name);
-        return conf ? conf.data : {};
+        const pluginConf = ConfigData.getPluginConfig(this.name);
+        var conf: any = {};
+
+        for (var key in this.defaults) {
+            if (this.defaults.hasOwnProperty(key)) {
+                conf[key] = pluginConf.data[key] ? pluginConf.data[key] : this.defaults[key];
+            }
+        };
+        return conf;
     }
 
     set config(config: any) {
