@@ -31,12 +31,25 @@ export default class PluginCounter extends Plugin {
 
         switch (this.type) {
             case "increment":
+            case "inc":
+            case "+":
+            case "+=":
                 counter += this.value;
                 break;
+            case "++":
+                counter++;
+                break;
             case "decrement":
+            case "dec":
+            case "-":
+            case "-=":
                 counter -= this.value;
                 break;
+            case "--":
+                counter--;
+                break;
             case "set":
+            case "=":
                 counter = this.value;
                 break;
 

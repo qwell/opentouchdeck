@@ -20,7 +20,7 @@
           "action": {
             "name": "counter",
             "params": {
-              "type": "increment",
+              "type": "+",
               "value": 1,
               "variable": "fooCounter"
             }
