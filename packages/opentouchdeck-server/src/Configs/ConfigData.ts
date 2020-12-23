@@ -38,6 +38,6 @@ export default class ConfigData {
     static clearPluginConfig() {
         this.plugins = [];
 
-        EventHandlers.triggers.emit('plugin/configclear', name);
+        EventHandlers.triggers.emit('plugin/configclear');
     }
 }
