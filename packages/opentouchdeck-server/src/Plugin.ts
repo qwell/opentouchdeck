@@ -53,14 +53,14 @@ export default abstract class Plugin {
 
         for (var key in this.defaults) {
             if (this.defaults.hasOwnProperty(key)) {
-                conf[key] = pluginConf.data[key] ? pluginConf.data[key] : this.defaults[key];
+                conf[key] = pluginConf.config[key] ? pluginConf.config[key] : this.defaults[key];
             }
         };
         return conf;
     }
 
     set config(config: any) {
-        ConfigData.setPluginConfig(this.name, { name: this.name, data: config });
+        ConfigData.setPluginConfig(this.name, { name: this.name, config: config });
     }
 
     abstract eventDataMatch(event: string, configdata: any, eventdata: any): boolean;
